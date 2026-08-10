@@ -1,105 +1,140 @@
 #!/usr/bin/env python3
 """
-Porsche 993 Daily Digest — Publisher Script
-Generates the daily digest HTML, pushes to GitHub, and deploys to Cloudflare Pages.
-Designed to be called by Hermes cronjob.
+Porsche 993 Daily Digest Publisher
+Automated GitHub + Cloudflare Pages deployment
 """
-import os
-import sys
-import json
+
 import subprocess
-from datetime import datetime
+import sys
+import os
+from pathlib import Path
 
-# ── Config ──────────────────────────────────────────────────────────────
-REPO_DIR = r"C:\Users\SERVER\Hermes-Workspace\porsche-digest"
-REPO_URL = "https://github.com/zw96v6wxvj-gif/porsche-digest.git"
-PROJECT_NAME = "porsche-digest"
-ACCOUNT_ID = "0a68341689fffbae0284be2321350415"
-BRANCH = "main"
+def run_cmd(cmd, cwd=None):
+    """Execute command and return result"""
+    try:
+        result = subprocess.run(cmd, shell=True, cwd=cwd, capture_output=True, text=True, timeout=60)
+        return result.returncode == 0, result.stdout, result.stderr
+    except subprocess.TimeoutExpired:
+        return False, "", "Command timed out"
 
-# Load tokens from .env — use profile-agnostic path
-ENV_PATH = os.path.expanduser("~/.hermes/.env")
-# Fallback: profile-specific env
-if not os.path.exists(ENV_PATH):
-    ENV_PATH = os.path.expanduser("~/.hermes/profiles/hobbies/.env")
-env = {}
-if os.path.exists(ENV_PATH):
-    with open(ENV_PATH) as f:
-        for line in f:
-            line = line.strip()
-            if "=" in line and not line.startswith("#"):
-                k, v = line.split("=", 1)
-                env[k.strip()] = v.strip()
-
-GH_TOKEN = env.get("GITHUB_TOKEN", "")
-CF_TOKEN = env.get("CLOUDFLARE_API_TOKEN", "")
-
-def run(cmd, cwd=None, env_vars=None):
-    """Run a shell command and return stdout."""
-    full_env = os.environ.copy()
-    if env_vars:
-        full_env.update(env_vars)
-    r = subprocess.run(cmd, shell=True, capture_output=True, text=True, env=full_env, cwd=cwd)
-    if r.returncode != 0:
-        print(f"ERROR: {r.stderr}", file=sys.stderr)
-    return r.stdout.strip(), r.stderr.strip(), r.returncode
-
-def publish_html(html_content):
-    """Write HTML to repo, commit, push to GitHub, and deploy to Cloudflare Pages."""
-    today = datetime.now().strftime("%Y-%m-%d")
-    today_br = datetime.now().strftime("%d/%m/%Y")
-
-    # Ensure repo exists
-    if not os.path.exists(REPO_DIR):
-        run(f'git clone https://{GH_TOKEN}@github.com/zw96v6wxvj-gif/porsche-digest.git "{REPO_DIR}"')
-
-    # Set remote with token for push
-    run(f'git remote set-url origin https://{GH_TOKEN}@github.com/zw96v6wxvj-gif/porsche-digest.git',
-        cwd=REPO_DIR)
-
-    # Write index.html
-    index_path = os.path.join(REPO_DIR, "index.html")
-    with open(index_path, "w", encoding="utf-8") as f:
-        f.write(html_content)
-
-    # Git commit and push
-    run('git add -A', cwd=REPO_DIR)
-    run(f'git commit -m "daily digest — {today}"', cwd=REPO_DIR)
-    run(f'git push origin {BRANCH}', cwd=REPO_DIR)
-
+def main():
+    # Set working directory
+    repo_dir = Path.home() / "Hermes-Workspace" / "porsche-digest"
+    
+    if not repo_dir.exists():
+        print(f"❌ Directory not found: {repo_dir}")
+        return False
+    
+    os.chdir(repo_dir)
+    print(f"📁 Working in: {repo_dir}")
+    
+    # Load GitHub token from .hermes/.env
+    env_file = Path.home() / ".hermes" / ".env"
+    github_token = None
+    
+    if env_file.exists():
+        with open(env_file) as f:
+            for line in f:
+                if line.startswith("GITHUB_TOKEN="):
+                    github_token = line.split("=", 1)[1].strip()
+                    break
+    
+    if not github_token:
+        print("❌ GITHUB_TOKEN not found in ~/.hermes/.env")
+        return False
+    
+    # Initialize git if needed
+    if not (repo_dir / ".git").exists():
+        print("🚀 Initializing git repository...")
+        
+        success, _, error = run_cmd("git init")
+        if not success:
+            print(f"❌ Git init failed: {error}")
+            return False
+            
+        # Set remote with embedded token
+        remote_url = f"https://{github_token}@github.com/zw96v6wxvj-gif/porsche-digest.git"
+        success, _, error = run_cmd(f"git remote add origin {remote_url}")
+        if not success:
+            print(f"❌ Add remote failed: {error}")
+            return False
+            
+        # Configure user (required for commits)
+        run_cmd("git config user.email 'hermes@costafamily.ai'")
+        run_cmd("git config user.name 'Hermes Carrera'")
+    
+    # Stage and commit changes
+    print("📝 Committing digest update...")
+    
+    success, _, error = run_cmd("git add .")
+    if not success:
+        print(f"❌ Git add failed: {error}")
+        return False
+    
+    success, _, error = run_cmd('git commit -m "Daily Porsche 993 digest update - automated via Hermes"')
+    if not success and "nothing to commit" not in error:
+        print(f"❌ Git commit failed: {error}")
+        return False
+    
+    # Push to GitHub
+    print("⬆️  Pushing to GitHub...")
+    
+    success, stdout, error = run_cmd("git push origin main")
+    if not success:
+        # Try creating the branch first
+        success, _, _ = run_cmd("git push -u origin main")
+        if not success:
+            print(f"❌ Git push failed: {error}")
+            return False
+    
+    print("✅ Successfully pushed to GitHub!")
+    
     # Deploy to Cloudflare Pages via wrangler
-    cf_env = {"CLOUDFLARE_API_TOKEN": CF_TOKEN, "CLOUDFLARE_ACCOUNT_ID": ACCOUNT_ID}
-    out, err, rc = run(
-        f'npx wrangler pages deploy . --project-name {PROJECT_NAME} --branch {BRANCH}',
-        cwd=REPO_DIR, env_vars=cf_env
-    )
-
-    # Extract deployment URL from wrangler output
-    deploy_url = ""
-    for line in out.split("\n"):
-        if "Deployment complete" in line or "pages.dev" in line:
-            deploy_url = line.strip()
-            break
-
-    result = {
-        "date": today_br,
-        "github": "pushed",
-        "cloudflare": deploy_url or "deployed",
-        "domain": "https://digest.costafamily.ai",
-        "pages_dev": "https://porsche-digest.pages.dev",
-        "status": "published"
-    }
-    print(json.dumps(result, indent=2))
-    return result
+    print("🌐 Deploying to Cloudflare Pages...")
+    
+    # Load Cloudflare credentials
+    cf_token = None
+    cf_account_id = None
+    
+    with open(Path.home() / ".hermes" / ".env") as f:
+        for line in f:
+            if line.startswith("CLOUDFLARE_API_TOKEN="):
+                cf_token = line.split("=", 1)[1].strip()
+            elif line.startswith("CLOUDFLARE_ACCOUNT_ID="):
+                cf_account_id = line.split("=", 1)[1].strip()
+    
+    if not cf_token or not cf_account_id:
+        print("❌ Cloudflare credentials not found in ~/.hermes/.env")
+        return False
+    
+    # Set environment variables for wrangler
+    env = os.environ.copy()
+    env["CLOUDFLARE_API_TOKEN"] = cf_token
+    env["CLOUDFLARE_ACCOUNT_ID"] = cf_account_id
+    
+    # Deploy with wrangler
+    deploy_cmd = "npx wrangler pages deploy . --project-name porsche-digest --branch main"
+    
+    try:
+        result = subprocess.run(deploy_cmd, shell=True, cwd=repo_dir, 
+                              capture_output=True, text=True, timeout=120, env=env)
+        
+        if result.returncode == 0:
+            print("✅ Successfully deployed to Cloudflare Pages!")
+            print("🔗 Live at: https://digest.costafamily.ai")
+            print("🔗 Backup: https://porsche-digest.pages.dev")
+            return True
+        else:
+            print(f"❌ Wrangler deploy failed: {result.stderr}")
+            return False
+            
+    except subprocess.TimeoutExpired:
+        print("❌ Wrangler deploy timed out")
+        return False
+    except FileNotFoundError:
+        print("❌ wrangler not found. Install with: npm install -g wrangler")
+        return False
 
 if __name__ == "__main__":
-    # Test mode: read existing index.html and re-publish
-    test_html = os.path.join(REPO_DIR, "index.html")
-    if not os.path.exists(test_html):
-        test_html = r"C:\Users\SERVER\AppData\Local\Temp\porsche-digest\index.html"
-    if os.path.exists(test_html):
-        with open(test_html, "r", encoding="utf-8") as f:
-            html = f.read()
-        publish_html(html)
-    else:
-        print("No index.html found to publish")
+    success = main()
+    sys.exit(0 if success else 1)
