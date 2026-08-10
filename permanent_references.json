@@ -1,0 +1,25 @@
+{
+  "managed_by": "Daniel Costa",
+  "protected": true,
+  "note": "This manifest lists permanent references shown in the Digest. Automation must NOT overwrite the PERMANENT_REFERENCES block in the template unless explicit authorization is given by the user.",
+  "references": [
+    {
+      "title": "Porsche Drivers",
+      "type": "local_session",
+      "path": "C:/Users/SERVER/Hermes-Workspace/porsche-sessions/01_Porsche_Drivers.md",
+      "url": "/Hermes-Workspace/porsche-sessions/01_Porsche_Drivers.md"
+    },
+    {
+      "title": "Porsche Perfection Collectors",
+      "type": "local_session",
+      "path": "C:/Users/SERVER/Hermes-Workspace/porsche-sessions/02_Porsche_Perfection_Collectors.md",
+      "url": "/Hermes-Workspace/porsche-sessions/02_Porsche_Perfection_Collectors.md"
+    },
+    {
+      "title": "Porsche Custom Community",
+      "type": "local_session",
+      "path": "C:/Users/SERVER/Hermes-Workspace/porsche-sessions/03_Porsche_Custom_Community.md",
+      "url": "/Hermes-Workspace/porsche-sessions/03_Porsche_Custom_Community.md"
+    }
+  ]
+}
