@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porsche 993 Daily Digest | costafamily.ai</title>
+    <meta name="description" content="Daily Porsche 993 Carrera 4S Intelligence Brief — market data, auction results, Porsche Classic news, and maintenance intelligence.">
+    <style>
+        :root {
+            --porcelain: #0a0a0a;
+            --graphite: #1a1a1a;
+            --carbon: #2a2a2a;
+            --guard: #b8b8b8;
+            --silver: #e0e0e0;
+            --signal: #d5001c;
+            --gold: #c5a572;
+            --green: #4ade80;
+            --amber: #fbbf24;
+            --red: #ef4444;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--porcelain);
+            color: var(--silver);
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .hero {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            border-bottom: 1px solid var(--carbon);
+            padding: 60px 20px 40px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: var(--silver);
+            margin-bottom: 8px;
+        }
+        .hero .subtitle {
+            color: var(--guard);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .hero .date {
+            color: var(--gold);
+            font-size: 0.95rem;
+            margin-top: 12px;
+        }
+        .hero .badge {
+            display: inline-block;
+            background: var(--signal);
+            color: white;
+            padding: 2px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-top: 16px;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+        .section { margin-bottom: 50px; }
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold);
+            border-bottom: 1px solid var(--carbon);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .section-title .icon { font-size: 1.2rem; }
+
+        /* Market Table */
+        .market-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .market-table th {
+            text-align: left;
+            padding: 12px 16px;
+            background: var(--graphite);
+            color: var(--gold);
+            font-weight: 700;
+            border-bottom: 2px solid var(--carbon);
+        }
+        .market-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--carbon);
+            color: var(--guard);
+        }
+        .market-table tr:hover td { background: var(--graphite); }
+        .market-table .price { color: var(--green); font-weight: 700; }
+        .market-table .record { color: var(--amber); font-weight: 700; }
+        .market-table .active { color: var(--signal); font-weight: 700; }
+
+        .trend-box {
+            background: var(--graphite);
+            border-left: 3px solid var(--gold);
+            padding: 16px 20px;
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: var(--guard);
+            border-radius: 0 6px 6px 0;
+        }
+        .trend-box strong { color: var(--silver); }
+
+        /* News Cards */
+        .news-card {
+            background: var(--graphite);
+            border: 1px solid var(--carbon);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .news-card h3 {
+            color: var(--silver);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+        .news-card .tag {
+            display: inline-block;
+            background: var(--carbon);
+            color: var(--gold);
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .news-card ul { list-style: none; padding-left: 0; }
+        .news-card li {
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+            color: var(--guard);
+            font-size: 0.9rem;
+        }
+        .news-card li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+        }
+
+        /* Action Items */
+        .action-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        .action-table th {
+            text-align: left;
+            padding: 10px 16px;
+            background: var(--graphite);
+            color: var(--gold);
+            border-bottom: 2px solid var(--carbon);
+        }
+        .action-table td {
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--carbon);
+            color: var(--guard);
+        }
+        .priority-high { color: var(--red); font-weight: 700; }
+        .priority-med { color: var(--amber); font-weight: 700; }
+        .priority-low { color: var(--green); font-weight: 700; }
+        .status-pending { color: var(--guard); }
+        .status-info { color: var(--gold); }
+
+        /* Sources */
+        .sources { display: flex; flex-wrap: wrap; gap: 10px; }
+        .source-link {
+            background: var(--graphite);
+            border: 1px solid var(--carbon);
+            padding: 8px 14px;
+            border-radius: 6px;
+            color: var(--guard);
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .source-link:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--carbon);
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--guard);
+            font-size: 0.8rem;
+        }
+        .footer a { color: var(--gold); text-decoration: none; }
+        .footer .vin { color: var(--carbon); margin-top: 8px; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .market-table { font-size: 0.8rem; }
+            .market-table th, .market-table td { padding: 8px 10px; }
+            .container { padding: 20px 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="badge">AIR-COOLED · M64/21 · VARIORAM</div>
+        <h1>🏁 Porsche 993 Daily Digest</h1>
+        <div class="subtitle">1996 Carrera 4S · Intelligence Brief</div>
+        <div class="date">Sábado, 08 de Agosto de 2026</div>
+    </div>
+
+    <div class="container">
+        <!-- MARKET -->
+        <div class="section">
+            <div class="section-title">
+                <span class="icon">📊</span> Mercado & Leilões — 993 Carrera 4S
+            </div>
+            <table class="market-table">
+                <thead>
+                    <tr>
+                        <th>Plataforma</th>
+                        <th>Veículo</th>
+                        <th>Preço</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bring a Trailer</td>
+                        <td>993 C4S</td>
+                        <td class="price">$193.000</td>
+                        <td>23/Jun/2026</td>
+                    </tr>
+                    <tr>
+                        <td>Collecting Cars</td>
+                        <td>1997 C4S — 1.126 mi (time capsule, Aerokit)</td>
+                        <td class="record">$270.000 (recorde)</td>
+                        <td>Set/2025</td>
+                    </tr>
+                    <tr>
+                        <td>Cars & Bids</td>
+                        <td>1998 C4S, 46k mi, 6-MT, unmodified</td>
+                        <td class="active">$155.000 (em leilão)</td>
+                        <td>Ago/2026</td>
+                    </tr>
+                    <tr>
+                        <td>Classic.com</td>
+                        <td>Média 993 C4S (15 listings ativas)</td>
+                        <td class="price">~$150K–$270K</td>
+                        <td>2026</td>
+                    </tr>
+                    <tr>
+                        <td>Collecting Cars UK</td>
+                        <td>1996 C4S, 66.700 mi</td>
+                        <td class="price">£67.000 (~$85K)</td>
+                        <td>2025</td>
+                    </tr>
+                    <tr>
+                        <td>Collecting Cars UK</td>
+                        <td>1997 C4S, 28.800 mi, factory Aero Kit</td>
+                        <td class="price">£75.500 (~$96K)</td>
+                        <td>2025</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="trend-box">
+                <strong>Tendência:</strong> O mercado 993 C4S continua valorizando. O recorde de $270K (1.126 mi, time capsule) consolidou o teto para exemplares de baixuíssima quilometragem. O BaT a $193K (Jun/2026) confirma que cars com história boa e mileage moderada continuam acima de $150K. Cars & Bids tem um C4S 1998 ativo agora a $155K com 4 dias restantes — vale acompanhar o desfecho.
+            </div>
+        </div>
+
+        <!-- NEWS -->
+        <div class="section">
+            <div class="section-title">
+                <span class="icon">🏭</span> Notícias Porsche — Oficial
+            </div>
+
+            <div class="news-card">
+                <div class="tag">PORSCHE NEWSROOM</div>
+                <h3>30 Anos do 993 — "O Último de Sua Espécie"</h3>
+                <ul>
+                    <li><strong>400 milhões de Marcos Alemães</strong> e 4 anos de desenvolvimento investidos no 993</li>
+                    <li>Motor M64: virabrequim com maior rigidez torsional, bielas e pistões mais leves — 272 PS (pre-Varioram) / 285 PS (Varioram)</li>
+                    <li><strong>Eixo traseiro LSA</strong> (Leichtbau, Stabilität, Agilität) — precursor direto do eixo Weissach com direção passiva das rodas traseiras</li>
+                    <li>O 993 carregou a Porsche durante a crise de 1993, quando os modelos transaxle dianteiros estavam sendo descontinuados</li>
+                </ul>
+            </div>
+
+            <div class="news-card">
+                <div class="tag">PORSCHE CLASSIC</div>
+                <h3>6ª Porsche Classic Restoration Challenge (2026)</h3>
+                <ul>
+                    <li>Sexta edição anual — <strong>73 entradas registradas em 2025</strong> (recorde histórico)</li>
+                    <li>Categorias: <strong>Preservation</strong>, <strong>Restoration</strong>, <strong>Individualization</strong> (filosofia Sonderwunsch)</li>
+                    <li>Area West: Werks Reunion / Monterey Car Week — <strong>14 Ago 2026</strong></li>
+                    <li>Area South-Central: Artomobilia / Carmel, IN — <strong>28–29 Ago 2026</strong></li>
+                    <li>Area East: Audrain Newport Concours / Newport, RI — <strong>2–3 Out 2026</strong></li>
+                    <li>National Championship: <strong>Outubro 2026</strong></li>
+                    <li>Campeão 2025 Grand National: Porsche Bend — 1973 911T RSR Tribute</li>
+                    <li>Hashtag oficial: <strong>#porschechallenge26</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- MAINTENANCE -->
+        <div class="section">
+            <div class="section-title">
+                <span class="icon">⚙️</span> Manutenção & Peças — Ecossistema 993
+            </div>
+            <div class="news-card">
+                <div class="tag">SUPPLY CHAIN</div>
+                <h3>Fornecedores Ativos Confirmados (2026)</h3>
+                <ul>
+                    <li><strong>Suncoast Parts</strong> — Landing page 993 dedicada, OEM & acessórios</li>
+                    <li><strong>FCP Euro</strong> — Página 993 completa, peças Genuine/OE/OEM</li>
+                    <li><strong>Rennline</strong> — RSR Billet Oil Cap, Valve Covers billet aluminum, Timing Chain Covers</li>
+                    <li><strong>AutohausAZ</strong> — 29 páginas de peças 993 OEM/Genuine</li>
+                    <li><strong>Pelican Parts</strong> — Artigos técnicos: AC compressor belt, DME relay, fuel pressure regulator</li>
+                </ul>
+            </div>
+            <div class="news-card">
+                <div class="tag">FORUM INTEL</div>
+                <h3>911uk.com — 993 Engine Rebuild 2026 POV</h3>
+                <ul>
+                    <li>Thread ativa discutindo rebuild do M64/21</li>
+                    <li><strong>Valve guide wear</strong> confirmado como item esperado em engines com maior mileage</li>
+                    <li>Reforça importância de monitoramento periódico de folga de válvulas</li>
+                    <li>Debate: factory parts only vs aftermarket em rebuilds — consenso favorece OEM</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ACTION ITEMS -->
+        <div class="section">
+            <div class="section-title">
+                <span class="icon">📋</span> Action Items — 993 C4S
+            </div>
+            <table class="action-table">
+                <thead>
+                    <tr>
+                        <th>Prioridade</th>
+                        <th>Item</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="priority-high">🔴 Alta</td>
+                        <td>Monitorar leilão C4S 1998 no Cars & Bids ($155K, 4 dias)</td>
+                        <td class="status-pending">Pendente</td>
+                    </tr>
+                    <tr>
+                        <td class="priority-med">🟡 Média</td>
+                        <td>Verificar calendário Monterey Car Week (14 Ago) — Restoration Challenge Area West</td>
+                        <td class="status-pending">Pendente</td>
+                    </tr>
+                    <tr>
+                        <td class="priority-med">🟡 Média</td>
+                        <td>Confirmar intervalo de verificação de valve guides (thread 911UK)</td>
+                        <td class="status-pending">Pendente</td>
+                    </tr>
+                    <tr>
+                        <td class="priority-low">🟢 Baixa</td>
+                        <td>Revisar listing Elferspot 993 C4S (2 listings ativas 2026)</td>
+                        <td class="status-info">Informativo</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SOURCES -->
+        <div class="section">
+            <div class="section-title">
+                <span class="icon">📎</span> Fontes
+            </div>
+            <div class="sources">
+                <a class="source-link" href="https://newsroom.porsche.com/en/press-kits/60-Years-Porsche-911/30-Jahre-911-Carrera-der-Generation-993-%E2%80%93-Der-letzte-seiner-Art.html" target="_blank">Porsche Newsroom — 30 Years 993</a>
+                <a class="source-link" href="https://newsroom.porsche.com/en_US/2026/company/2026-Porsche-Classic-Restoration-Challenge-42067.html" target="_blank">Porsche Classic Restoration 2026</a>
+                <a class="source-link" href="https://bringatrailer.com/porsche/993-911-carrera-4s/" target="_blank">Bring a Trailer — C4S Auctions</a>
+                <a class="source-link" href="https://collectingcars.com/articles/what-to-pay-for-a-porsche-993" target="_blank">Collecting Cars — 993 Price Guide</a>
+                <a class="source-link" href="https://sportscardigest.com/another-record-breaking-porsche-at-collecting-cars/" target="_blank">Sports Car Digest — C4S Record $270K</a>
+                <a class="source-link" href="https://carsandbids.com/search/porsche/993-911" target="_blank">Cars & Bids — 993 Active Auctions</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2026 <a href="https://costafamily.ai">costafamily.ai</a> · Porsche 993 Carrera 4S Intelligence Brief</p>
+        <p class="vin">Auto-generated by Hermes Agent · Powered by Carrera Archivist</p>
+    </div>
+</body>
+</html>
