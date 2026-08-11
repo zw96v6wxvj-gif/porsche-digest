@@ -309,7 +309,19 @@
             color: rgba(255,255,255,0.5);
         }
         
-        /* ===== Responsive ===== */
+        .valuation-chart-container {
+            background: var(--porsche-white);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid var(--porsche-light-gray);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        
+        #valuationChart {
+            max-width: 100%;
+            height: auto;
+        }
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
             .hero-date { font-size: 3rem; }
@@ -500,9 +512,20 @@
         <section>
             <div class="section-header">
                 <h2 class="section-title"><span>💰</span> Valuation Analysis</h2>
-                <span style="color: #868686; font-size: 0.9rem;">Market averages • YoY change</span>
+                <span style="color: #868686; font-size: 0.9rem;">3-year trend • Sources: Classic.com, Bring a Trailer, PCA Report</span>
             </div>
             
+            <div class="valuation-chart-container">
+                <canvas id="valuationChart" width="1200" height="400"></canvas>
+            </div>
+            
+            <div class="valuation-source" style="margin-top: 1rem; font-size: 0.875rem; color: #868686;">
+                💱 Exchange rate: 1 USD = 5.09 BRL (Xe.com) • Updated: August 11, 2026
+            </div>
+        </section>
+        
+        <!-- Valuation Summary Cards -->
+        <section>
             <div class="valuation-grid">
                 <div class="valuation-card">
                     <div class="valuation-header">
@@ -623,7 +646,98 @@
         </div>
     </main>
     
-    <!-- Footer -->
+    <!-- Chart.js for valuation charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Historical valuation data for 993 models (2023-2026)
+        const valuationData = {
+            labels: ['Aug 2023', 'Feb 2024', 'Aug 2024', 'Feb 2025', 'Aug 2025', 'Feb 2026', 'Aug 2026'],
+            datasets: [
+                {
+                    label: 'Carrera 4S ($K)',
+                    data: [115, 122, 130, 138, 145, 150, 155],
+                    borderColor: '#d4af37',
+                    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#d4af37',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 7
+                },
+                {
+                    label: 'Carrera ($K)',
+                    data: [95, 105, 112, 118, 124, 129, 135],
+                    borderColor: '#000000',
+                    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#000000',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 7
+                },
+                {
+                    label: 'Turbo ($K)',
+                    data: [185, 200, 210, 218, 222, 224, 225],
+                    borderColor: '#868686',
+                    backgroundColor: 'rgba(134, 134, 134, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#868686',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 7
+                }
+            ]
+        };
+        
+        const config = {
+            type: 'line',
+            data: valuationData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: { family: "'Inter', sans-serif", size: 12 },
+                            padding: 20,
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleFont: { family: "'Inter', sans-serif", size: 14 },
+                        bodyFont: { family: "'Inter', sans-serif", size: 12 },
+                        padding: 12,
+                        cornerRadius: 8,
+                        displayColors: false
+                    }
+                },
+                scales: {
+                    y: {
+                        grid: { color: 'rgba(0,0,0,0.05)' },
+                        ticks: { font: { family: "'Inter', sans-serif", size: 11 }, color: '#868686' },
+                        border: { color: 'rgba(0,0,0,0.1)' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { family: "'Inter', sans-serif", size: 11 }, color: '#868686' }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                }
+            }
+        };
+        
+        const ctx = document.getElementById('valuationChart').getContext('2d');
+        const chart = new Chart(ctx, config);
+    </script>
     <footer>
         <div class="footer-grid">
             <div class="footer-column">
