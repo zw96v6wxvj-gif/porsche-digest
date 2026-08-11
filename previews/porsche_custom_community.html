@@ -1,31 +1,287 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Porsche Custom Community  Resources</title>
-  <style>body{font-family:Arial,Helvetica,sans-serif;padding:20px;background:#111;color:#eee}a{color:#f4d35e}</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porsche Custom Community | Porsche 993 Daily Digest</title>
+    <meta name="description" content="Resources for modified, tuned, and custom Porsche 911 builds - performance upgrades and tuning specialists.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --porsche-black: #000000;
+            --porsche-white: #ffffff;
+            --porsche-light-gray: #f0f0f0;
+            --porsche-dark-gray: #1d1d1f;
+            --porsche-medium-gray: #868686;
+            --porsche-gold: #d4af37;
+            --font-display: 'Playfair Display', serif;
+            --font-sans: 'Inter', system-ui, sans-serif;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--porsche-white);
+            color: var(--porsche-dark-gray);
+            padding: 4rem 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .profile-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .profile-tab {
+            padding: 0.75rem 1.5rem;
+            background: var(--porsche-light-gray);
+            border-radius: 999px;
+            text-decoration: none;
+            color: var(--porsche-dark-gray);
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .profile-tab:hover {
+            background: var(--porsche-gold);
+            color: var(--porsche-black);
+        }
+        
+        .profile-tab.active {
+            background: var(--porsche-gold);
+            color: var(--porsche-black);
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--porsche-gold);
+        }
+        
+        .profile-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            background: var(--porsche-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .profile-meta { flex-grow: 1; }
+        .profile-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .profile-desc {
+            color: var(--porsche-medium-gray);
+            margin-top: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .kanban-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+        
+        .kanban-card {
+            background: var(--porsche-white);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid var(--porsche-light-gray);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            transition: transform 0.2s ease;
+            height: 120px;
+        }
+        
+        .kanban-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+        
+        .kanban-thumbnail {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-bottom: 0.75rem;
+            border: 2px solid var(--porsche-light-gray);
+        }
+        
+        .kanban-card h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .kanban-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--porsche-medium-gray);
+            margin-top: 0.5rem;
+        }
+        
+        .kanban-card a {
+            color: var(--porsche-gold);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .kanban-card a:hover { text-decoration: underline; }
+        
+        @media (max-width: 768px) {
+            .kanban-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
 </head>
 <body>
-  <h1>Porsche Custom Community</h1>
-  <p>Open to modifications, performance upgrades, tuning and custom builds.</p>
-  <h2>Top links</h2>
-  <ul>
-    <li><a href="https://www.techart.de/" target="_blank">TechArt</a></li>
-    <li><a href="https://www.ruf-automobile.de/" target="_blank">RUF Automobile</a></li>
-    <li><a href="https://www.singervehicledesign.com/" target="_blank">Singer Vehicle Design</a></li>
-    <li><a href="https://www.guntherwerks.com/" target="_blank">Gunther Werks</a></li>
-    <li><a href="https://www.manthey-racing.com/" target="_blank">Manthey-Racing</a></li>
-    <li><a href="https://www.fabspeed.com/" target="_blank">Fabspeed Performance</a></li>
-    <li><a href="https://elephantracing.com/" target="_blank">Elephant Racing</a></li>
-    <li><a href="https://www.fvd-brombacher.com/" target="_blank">FVD Brombacher</a></li>
-    <li><a href="https://bbiautosport.com/" target="_blank">BBI Autosport</a></li>
-    <li><a href="https://8speedshop.com/" target="_blank">8speedshop (parts)</a></li>
-    <li><a href="https://www.bilstein.com/" target="_blank">Bilstein / KW (suspension)</a></li>
-    <li><a href="https://www.european-supercars.com/" target="_blank">Tuning & Track prep communities</a></li>
-    <li><a href="https://www.youtube.com/" target="_blank">YouTube: tuning & build channels (search: Porsche build)</a></li>
-    <li>DM me to verify/extend these with local shops or Instagram builders.</li>
-  </ul>
-  <p><small>I can verify each URL and add thumbnails if you want.</small></p>
+    <div class="container">
+        <!-- Profile Switcher -->
+        <div class="profile-switcher">
+            <a href="porsche_drivers.html" class="profile-tab">Porsche Drivers</a>
+            <a href="porsche_perfection_collectors.html" class="profile-tab">Porsche Perfection Collectors</a>
+            <a href="porsche_custom_community.html" class="profile-tab active">Porsche Custom Community</a>
+        </div>
+        
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profile-icon">⚡</div>
+            <div class="profile-meta">
+                <div class="profile-title">Porsche Custom Community</div>
+                <p class="profile-desc">Open to modifications, performance upgrades, tuning and custom builds for air-cooled 911 enthusiasts.</p>
+            </div>
+        </div>
+        
+        <!-- Kanban Grid -->
+        <div class="kanban-grid">
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/techart-logo.png" alt="TechArt" class="kanban-thumbnail">
+                <h3>TechArt — Premium Body Kits & Performance</h3>
+                <div class="kanban-meta"><span>Tuning</span><span>Germany</span></div>
+                <a href="https://www.techart.de/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/ruf-logo.png" alt="RUF" class="kanban-thumbnail">
+                <h3>RUF Automobile — Bespoke 911 Builds</h3>
+                <div class="kanban-meta"><span>Custom</span><span>Germany</span></div>
+                <a href="https://www.ruf-automobile.de/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/singer-logo.png" alt="Singer Vehicle Design" class="kanban-thumbnail">
+                <h3>Singer Vehicle Design — Restomods</h3>
+                <div class="kanban-meta"><span>Restomod</span><span>US</span></div>
+                <a href="https://www.singervehicledesign.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/guntherwerks-logo.png" alt="Gunther Werks" class="kanban-thumbnail">
+                <h3>Gunther Werks — Precision Tuning</h3>
+                <div class="kanban-meta"><span>Tuning</span><span>US</span></div>
+                <a href="https://www.guntherwerks.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/manthey-logo.png" alt="Manthey-Racing" class="kanban-thumbnail">
+                <h3>Manthey-Racing — Track Performance</h3>
+                <div class="kanban-meta"><span>Racing</span><span>Germany</span></div>
+                <a href="https://www.manthey-racing.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/fabspeed-logo.png" alt="Fabspeed" class="kanban-thumbnail">
+                <h3>Fabspeed — Exhaust Systems</h3>
+                <div class="kanban-meta"><span>Performance</span><span>US</span></div>
+                <a href="https://www.fabspeed.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/elephant-racing-logo.png" alt="Elephant Racing" class="kanban-thumbnail">
+                <h3>Elephant Racing — Suspension Tuning</h3>
+                <div class="kanban-meta"><span>Suspension</span><span>US</span></div>
+                <a href="https://elephantracing.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/fvd-brombacher-logo.png" alt="FVD Brombacher" class="kanban-thumbnail">
+                <h3>FVD Brombacher — European Tuning</h3>
+                <div class="kanban-meta"><span>Tuning</span><span>Europe</span></div>
+                <a href="https://www.fvd-brombacher.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/bbi-autosport-logo.png" alt="BBI Autosport" class="kanban-thumbnail">
+                <h3>BBI Autosport — Performance Parts</h3>
+                <div class="kanban-meta"><span>Parts</span><span>US</span></div>
+                <a href="https://bbiautosport.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/8speedshop-logo.png" alt="8SpeedShop" class="kanban-thumbnail">
+                <h3>8SpeedShop — Porsche Parts</h3>
+                <div class="kanban-meta"><span>Parts</span><span>Shop</span></div>
+                <a href="https://8speedshop.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/bilstein-logo.png" alt="Bilstein" class="kanban-thumbnail">
+                <h3>Bilstein / KW — Suspension</h3>
+                <div class="kanban-meta"><span>Suspension</span><span>Germany</span></div>
+                <a href="https://www.bilstein.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://content-hub.imgix.net/3LLewVMrVqlm7GvIAcWAo/e5231a8a559cf7a939a5a793be01b213/911_Carrera_Cabriolet_Turbolook__type_993__and_911_Carrera_4_Cabriolet__type_996__driving_on_open_road_desktop_hero?w=200" alt="Tuning" class="kanban-thumbnail">
+                <h3>YouTube — Porsche Build Channels</h3>
+                <div class="kanban-meta"><span>Video</span><span>Tutorials</span></div>
+                <a href="https://www.youtube.com/results?search_query=porsche+993+tuning">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/european-supercars-logo.png" alt="European Supercars" class="kanban-thumbnail">
+                <h3>European Supercars — Tuning Community</h3>
+                <div class="kanban-meta"><span>Community</span><span>Europe</span></div>
+                <a href="https://www.european-supercars.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/porsche-instagram-logo.png" alt="@porsche" class="kanban-thumbnail">
+                <h3>Porsche Instagram — Custom Builds</h3>
+                <div class="kanban-meta"><span>Social</span><span>Official</span></div>
+                <a href="https://www.instagram.com/porsche/">Open →</a>
+            </div>
+        </div>
+        
+        <!-- Back to Digest Link -->
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="/" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--porsche-black); text-decoration: none; font-weight: 600;">
+                ← Back to Daily Digest
+            </a>
+        </div>
+    </div>
 </body>
 </html>

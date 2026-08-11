@@ -1,46 +1,386 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Porsche Drivers — Resources</title>
-  <style>body{font-family:Arial,Helvetica,sans-serif;padding:20px;background:#111;color:#eee}a{color:#f4d35e}</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reference Profiles | Porsche 993 Daily Digest</title>
+    <meta name="description" content="Porsche 993 reference profiles organized by community focus: Drivers, Collectors, Custom.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --porsche-black: #000000;
+            --porsche-white: #ffffff;
+            --porsche-light-gray: #f0f0f0;
+            --porsche-dark-gray: #1d1d1f;
+            --porsche-medium-gray: #868686;
+            --porsche-gold: #d4af37;
+            --font-display: 'Playfair Display', serif;
+            --font-sans: 'Inter', system-ui, sans-serif;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--porsche-white);
+            color: var(--porsche-dark-gray);
+            padding: 4rem 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .page-header h1 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+        }
+        
+        .page-header p {
+            color: var(--porsche-medium-gray);
+            font-size: 1.1rem;
+        }
+        
+        /* ===== Profile Header ===== */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--porsche-gold);
+        }
+        
+        .profile-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            background: var(--porsche-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .profile-meta {
+            flex-grow: 1;
+        }
+        
+        .profile-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .profile-desc {
+            color: var(--porsche-medium-gray);
+            margin-top: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        /* ===== Kanban Grid ===== */
+        .kanban-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+        
+        .kanban-card {
+            background: var(--porsche-white);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid var(--porsche-light-gray);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            transition: transform 0.2s ease;
+            height: 120px;
+        }
+        
+        .kanban-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+        
+        .kanban-thumbnail {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-bottom: 0.75rem;
+            border: 2px solid var(--porsche-light-gray);
+        }
+        
+        .kanban-card h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .kanban-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--porsche-medium-gray);
+            margin-top: 0.5rem;
+        }
+        
+        .kanban-card a {
+            color: var(--porsche-gold);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .kanban-card a:hover {
+            text-decoration: underline;
+        }
+        
+        /* ===== Profile Switcher ===== */
+        .profile-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .profile-tab {
+            padding: 0.75rem 1.5rem;
+            background: var(--porsche-light-gray);
+            border-radius: 999px;
+            text-decoration: none;
+            color: var(--porsche-dark-gray);
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .profile-tab:hover {
+            background: var(--porsche-gold);
+            color: var(--porsche-black);
+        }
+        
+        .profile-tab.active {
+            background: var(--porsche-gold);
+            color: var(--porsche-black);
+        }
+        
+        @media (max-width: 768px) {
+            .kanban-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .profile-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>Porsche Drivers</h1>
-  <p>Community and resources for road-focused Porsche enthusiasts — eclectic, travel, meetups and lifestyle.</p>
-  <h2>Top links</h2>
-  <ul>
-    <li><a href="https://www.porsche.com/" target="_blank">Porsche (official)</a></li>
-    <li><a href="https://www.pca.org/" target="_blank">Porsche Club of America (PCA)</a></li>
-    <li><a href="https://porscheclubbrasil.com.br/" target="_blank">Porsche Club Brasil</a></li>
-    <li><a href="https://rennlist.com/" target="_blank">Rennlist (forum)</a></li>
-    <li><a href="https://www.pelicanparts.com/" target="_blank">Pelican Parts</a></li>
-    <li><a href="https://bringatrailer.com/" target="_blank">Bring a Trailer</a></li>
-    <li><a href="https://www.hagerty.com/" target="_blank">Hagerty</a></li>
-    <li><a href="https://petrolicious.com/" target="_blank">Petrolicious</a></li>
-    <li><a href="https://www.roadandtrack.com/" target="_blank">Road & Track</a></li>
-    <li><a href="https://www.motortrend.com/" target="_blank">MotorTrend</a></li>
-    <li><a href="https://drivetribe.com/" target="_blank">DriveTribe</a></li>
-    <li><a href="https://www.supercars.net/" target="_blank">Supercars.net</a></li>
-    <li><a href="https://6speedonline.com/" target="_blank">6speedonline (forum)</a></li>
-    <li><a href="https://www.instagram.com/porsche/" target="_blank">Instagram: @porsche</a></li>
-    <li><a href="https://www.instagram.com/petrolicious/" target="_blank">Instagram: @petrolicious</a></li>
-    <li><a href="https://www.instagram.com/porscheclassic/" target="_blank">Instagram: @porscheclassic</a></li>
-    <li><a href="https://www.instagram.com/therealmagnuswalker/" target="_blank">Instagram: @therealmagnuswalker</a></li>
-    <li><a href="https://www.youtube.com/user/Porsche" target="_blank">YouTube: Porsche (official)</a></li>
-    <li><a href="https://www.youtube.com/c/Petrolicious" target="_blank">YouTube: Petrolicious</a></li>
-    <li><a href="https://www.youtube.com/user/JayLenosGarage" target="_blank">YouTube: Jay Leno's Garage</a></li>
-    <li><a href="https://www.youtube.com/c/Hagerty" target="_blank">YouTube: Hagerty</a></li>
-    <li><a href="https://www.youtube.com/c/RegularCars" target="_blank">YouTube: RegularCars</a></li>
-    <li><a href="https://www.pelicanparts.com/techarticles/" target="_blank">PelicanParts Tech Articles</a></li>
-    <li><a href="https://www.meetup.com/" target="_blank">Meetup.com (search & local meetups)</a></li>
-    <li><a href="https://www.goodwood.com/" target="_blank">Goodwood</a></li>
-    <li><a href="https://roadtrippers.com/" target="_blank">Roadtrippers (routes)</a></li>
-    <li><a href="https://www.speedhunters.com/" target="_blank">Speed Hunters</a></li>
-    <li><a href="https://www.993registry.org/" target="_blank">993Registry</a></li>
-    <li>…and more — request country/region-specific lists if you want.</li>
-  </ul>
-  <p><small>Managed as a permanent session. Edit via Hermes workspace if you want changes.</small></p>
+    <div class="container">
+        <!-- Profile Switcher -->
+        <div class="profile-switcher">
+            <a href="porsche_drivers.html" class="profile-tab active">Porsche Drivers</a>
+            <a href="porsche_perfection_collectors.html" class="profile-tab">Porsche Perfection Collectors</a>
+            <a href="porsche_custom_community.html" class="profile-tab">Porsche Custom Community</a>
+        </div>
+        
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profile-icon">🚗</div>
+            <div class="profile-meta">
+                <div class="profile-title">Porsche Drivers</div>
+                <p class="profile-desc">Community and resources for road-focused Porsche enthusiasts — eclectic, travel, meetups and lifestyle.</p>
+            </div>
+        </div>
+        
+        <!-- Kanban Grid -->
+        <div class="kanban-grid">
+            <!-- Row 1 -->
+            <div class="kanban-card">
+                <img src="https://content-hub.imgix.net/GUhocLc6D6V9qFtm3Oc2g/19e093064c8a22f6214f16a85469aac2/7-20things-20you-20need-20to-20know-20about-20the-20porsche-20911-20type-20993.jpg?w=200" alt="Porsche Stories" class="kanban-thumbnail">
+                <h3>Porsche Stories - 911 Type 993 Explained</h3>
+                <div class="kanban-meta">
+                    <span>News</span>
+                    <span>5 min read</span>
+                </div>
+                <a href="https://www.porsche.com/stories/mobility/7-things-you-need-to-know-about-the-porsche-911-type-993/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Porsche_911_993_Rear.jpg/200px-Porsche_911_993_Rear.jpg" alt="Porsche Drivers" class="kanban-thumbnail">
+                <h3>Porsche Drivers Community</h3>
+                <div class="kanban-meta">
+                    <span>Community</span>
+                    <span>Forum</span>
+                </div>
+                <a href="/Hermes-Workspace/porsche-sessions/01_Porsche_Drivers.md">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/porsche-club-brasil-logo.png" alt="Porsche Club Brasil" class="kanban-thumbnail">
+                <h3>Porsche Club Brasil</h3>
+                <div class="kanban-meta">
+                    <span>Club</span>
+                    <span>Brazil</span>
+                </div>
+                <a href="https://porscheclubbrasil.com.br/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/rennlist-logo.png" alt="Rennlist" class="kanban-thumbnail">
+                <h3>Rennlist Forum</h3>
+                <div class="kanban-meta">
+                    <span>Forum</span>
+                    <span>Technical</span>
+                </div>
+                <a href="https://rennlist.com/">Open →</a>
+            </div>
+            
+            <!-- Row 2 -->
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/petrolicious-logo.png" alt="Petrolicious" class="kanban-thumbnail">
+                <h3>Petrolicious</h3>
+                <div class="kanban-meta">
+                    <span>Media</span>
+                    <span>Content</span>
+                </div>
+                <a href="https://petrolicious.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/porsche-youtube-logo.png" alt="Porsche YouTube" class="kanban-thumbnail">
+                <h3>Porsche Official YouTube</h3>
+                <div class="kanban-meta">
+                    <span>Video</span>
+                    <span>Official</span>
+                </div>
+                <a href="https://www.youtube.com/user/Porsche">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/porsche-instagram-logo.png" alt="@porsche" class="kanban-thumbnail">
+                <h3>@porsche Instagram</h3>
+                <div class="kanban-meta">
+                    <span>Social</span>
+                    <span>Official</span>
+                </div>
+                <a href="https://www.instagram.com/porsche/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/roadtrippers-logo.png" alt="Roadtrippers" class="kanban-thumbnail">
+                <h3>Roadtrippers</h3>
+                <div class="kanban-meta">
+                    <span>Routes</span>
+                    <span>Travel</span>
+                </div>
+                <a href="https://roadtrippers.com/">Open →</a>
+            </div>
+            
+            <!-- Row 3 -->
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/goodwood-logo.png" alt="Goodwood" class="kanban-thumbnail">
+                <h3>Goodwood Festival</h3>
+                <div class="kanban-meta">
+                    <span>Events</span>
+                    <span>UK</span>
+                </div>
+                <a href="https://www.goodwood.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/meetup-logo.png" alt="Meetup" class="kanban-thumbnail">
+                <h3>Meetup.com</h3>
+                <div class="kanban-meta">
+                    <span>Community</span>
+                    <span>Events</span>
+                </div>
+                <a href="https://www.meetup.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/supercars-logo.png" alt="Supercars.net" class="kanban-thumbnail">
+                <h3>Supercars.net</h3>
+                <div class="kanban-meta">
+                    <span>Media</span>
+                    <span>News</span>
+                </div>
+                <a href="https://www.supercars.net/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/road-and-track-logo.png" alt="Road & Track" class="kanban-thumbnail">
+                <h3>Road & Track Magazine</h3>
+                <div class="kanban-meta">
+                    <span>Magazine</span>
+                    <span>US</span>
+                </div>
+                <a href="https://www.roadandtrack.com/">Open →</a>
+            </div>
+            
+            <!-- Row 4 -->
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/motortrend-logo.png" alt="MotorTrend" class="kanban-thumbnail">
+                <h3>MotorTrend</h3>
+                <div class="kanban-meta">
+                    <span>TV</span>
+                    <span>Media</span>
+                </div>
+                <a href="https://www.motortrend.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/jay-lenos-garage-logo.png" alt="Jay Leno's Garage" class="kanban-thumbnail">
+                <h3>Jay Leno's Garage</h3>
+                <div class="kanban-meta">
+                    <span>YouTube</span>
+                    <span>Video</span>
+                </div>
+                <a href="https://www.youtube.com/user/JayLenosGarage">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/drive-tribe-logo.png" alt="DriveTribe" class="kanban-thumbnail">
+                <h3>DriveTribe</h3>
+                <div class="kanban-meta">
+                    <span>Community</span>
+                    <span>Media</span>
+                </div>
+                <a href="https://drivetribe.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/fcp-euro-logo.png" alt="FCP Euro" class="kanban-thumbnail">
+                <h3>FCP Euro DIY Blog</h3>
+                <div class="kanban-meta">
+                    <span>Parts</span>
+                    <span>DIY</span>
+                </div>
+                <a href="https://www.fcpeuro.com/blogs/">Open →</a>
+            </div>
+        </div>
+        
+        <!-- Back to Digest Link -->
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="/" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--porsche-black); text-decoration: none; font-weight: 600;">
+                ← Back to Daily Digest
+            </a>
+        </div>
+    </div>
 </body>
 </html>

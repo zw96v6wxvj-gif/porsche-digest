@@ -1,34 +1,287 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Porsche Perfection Collectors  Resources</title>
-  <style>body{font-family:Arial,Helvetica,sans-serif;padding:20px;background:#111;color:#eee}a{color:#f4d35e}</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porsche Perfection Collectors | Porsche 993 Daily Digest</title>
+    <meta name="description" content="Curated resources for 993 collectors and investors - originality, valuation, and market data.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --porsche-black: #000000;
+            --porsche-white: #ffffff;
+            --porsche-light-gray: #f0f0f0;
+            --porsche-dark-gray: #1d1d1f;
+            --porsche-medium-gray: #868686;
+            --porsche-gold: #d4af37;
+            --font-display: 'Playfair Display', serif;
+            --font-sans: 'Inter', system-ui, sans-serif;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--porsche-white);
+            color: var(--porsche-dark-gray);
+            padding: 4rem 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .profile-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .profile-tab {
+            padding: 0.75rem 1.5rem;
+            background: var(--porsche-light-gray);
+            border-radius: 999px;
+            text-decoration: none;
+            color: var(--porsche-dark-gray);
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .profile-tab:hover {
+            background: var(--porsche-gold);
+            color: var(--porsche-black);
+        }
+        
+        .profile-tab.active {
+            background: var(--porsche-gold);
+            color: var(--porsche-black);
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--porsche-gold);
+        }
+        
+        .profile-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            background: var(--porsche-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .profile-meta { flex-grow: 1; }
+        .profile-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .profile-desc {
+            color: var(--porsche-medium-gray);
+            margin-top: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .kanban-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+        
+        .kanban-card {
+            background: var(--porsche-white);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid var(--porsche-light-gray);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            transition: transform 0.2s ease;
+            height: 120px;
+        }
+        
+        .kanban-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+        
+        .kanban-thumbnail {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-bottom: 0.75rem;
+            border: 2px solid var(--porsche-light-gray);
+        }
+        
+        .kanban-card h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .kanban-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--porsche-medium-gray);
+            margin-top: 0.5rem;
+        }
+        
+        .kanban-card a {
+            color: var(--porsche-gold);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .kanban-card a:hover { text-decoration: underline; }
+        
+        @media (max-width: 768px) {
+            .kanban-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
 </head>
 <body>
-  <h1>Porsche Perfection Collectors</h1>
-  <p>Focus: originality, low mileage, exclusivity and valuation.</p>
-  <h2>Top links</h2>
-  <ul>
-    <li><a href="https://www.993registry.org/" target="_blank">993Registry</a></li>
-    <li><a href="https://www.hagerty.com/" target="_blank">Hagerty</a></li>
-    <li><a href="https://bringatrailer.com/" target="_blank">Bring a Trailer</a></li>
-    <li><a href="https://www.classic.com/" target="_blank">Classic.com (market data)</a></li>
-    <li><a href="https://www.classicdriver.com/" target="_blank">Classic Driver</a></li>
-    <li><a href="https://www.goodingco.com/" target="_blank">Gooding & Co.</a></li>
-    <li><a href="https://rmsothebys.com/" target="_blank">RM Sotheby's</a></li>
-    <li><a href="https://www.bonhams.com/" target="_blank">Bonhams</a></li>
-    <li><a href="https://www.hemings.com/" target="_blank">Hemmings</a></li>
-    <li><a href="https://www.classiccars.com/" target="_blank">ClassicCars.com</a></li>
-    <li><a href="https://www.porsche.com/classic/" target="_blank">Porsche Classic Center / Registry</a></li>
-    <li><a href="https://www.fvd-brombacher.com/" target="_blank">FVD Brombacher (Europe specialist)</a></li>
-    <li><a href="https://www.elhenry.com/" target="_blank">Elferspot / 993 forums</a></li>
-    <li><a href="https://www.classicmotorsports.com/" target="_blank">Classic Motorsports</a></li>
-    <li><a href="https://www.bonhamstest.com/" target="_blank">Auction houses & valuation resources</a></li>
-    <li><a href="https://www.youtube.com/" target="_blank">YouTube: valuation & concours channels</a></li>
-    <li>Additional trusted registries and appraisal houses can be added on request.</li>
-  </ul>
-  <p><small>If you want region-specific collector sources (UK/US/BR), tell me and I'll expand and verify each URL.</small></p>
+    <div class="container">
+        <!-- Profile Switcher -->
+        <div class="profile-switcher">
+            <a href="porsche_drivers.html" class="profile-tab">Porsche Drivers</a>
+            <a href="porsche_perfection_collectors.html" class="profile-tab active">Porsche Perfection Collectors</a>
+            <a href="porsche_custom_community.html" class="profile-tab">Porsche Custom Community</a>
+        </div>
+        
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profile-icon">💎</div>
+            <div class="profile-meta">
+                <div class="profile-title">Porsche Perfection Collectors</div>
+                <p class="profile-desc">Focus: originality, low mileage, exclusivity and valuation for discerning 911 enthusiasts.</p>
+            </div>
+        </div>
+        
+        <!-- Kanban Grid -->
+        <div class="kanban-grid">
+            <div class="kanban-card">
+                <img src="https://content-hub.imgix.net/GUhocLc6D6V9qFtm3Oc2g/19e093064c8a22f6214f16a85469aac2/7-20things-20you-20need-20to-20know-20about-20the-20porsche-20911-20type-20993.jpg?w=200" alt="993 Registry" class="kanban-thumbnail">
+                <h3>993Registry — Official Type 993 Database</h3>
+                <div class="kanban-meta"><span>Registry</span><span>Classic</span></div>
+                <a href="https://www.993registry.org/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/classic-com-logo.png" alt="Classic.com" class="kanban-thumbnail">
+                <h3>Classic.com — Market Data & Analytics</h3>
+                <div class="kanban-meta"><span>Market Data</span><span>Valuation</span></div>
+                <a href="https://www.classic.com/market/porsche/911/993/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/hagerty-logo.png" alt="Hagerty" class="kanban-thumbnail">
+                <h3>Hagerty — Insurance & Price Guide</h3>
+                <div class="kanban-meta"><span>Valuation</span><span>Insurance</span></div>
+                <a href="https://www.hagerty.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/bringatrailer-logo.png" alt="Bring a Trailer" class="kanban-thumbnail">
+                <h3>Bring a Trailer — Vintage 911 Auctions</h3>
+                <div class="kanban-meta"><span>Auctions</span><span>Market</span></div>
+                <a href="https://bringatrailer.com/porsche/993-911-carrera-4s/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/classicdriver-logo.png" alt="Classic Driver" class="kanban-thumbnail">
+                <h3>Classic Driver — Collectors' Marketplace</h3>
+                <div class="kanban-meta"><span>Marketplace</span><span>Media</span></div>
+                <a href="https://www.classicdriver.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/gooding-logo.png" alt="Gooding & Co." class="kanban-thumbnail">
+                <h3>Gooding & Co. — Premier Auction House</h3>
+                <div class="kanban-meta"><span>Auctions</span><span>US</span></div>
+                <a href="https://www.goodingco.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/rmsothebys-logo.png" alt="RM Sotheby's" class="kanban-thumbnail">
+                <h3>RM Sotheby's — Collector Car Auctions</h3>
+                <div class="kanban-meta"><span>Auctions</span><span>Global</span></div>
+                <a href="https://rmsothebys.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/bonhams-logo.png" alt="Bonhams" class="kanban-thumbnail">
+                <h3>Bonhams — Fine Motor Cars</h3>
+                <div class="kanban-meta"><span>Auctions</span><span>UK</span></div>
+                <a href="https://www.bonhams.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/hemings-logo.png" alt="Hemmings" class="kanban-thumbnail">
+                <h3>Hemmings — Classic Car Marketplace</h3>
+                <div class="kanban-meta"><span>Classifieds</span><span>US</span></div>
+                <a href="https://www.hemings.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/classiccars-logo.png" alt="ClassicCars.com" class="kanban-thumbnail">
+                <h3>ClassicCars.com — Inventory Search</h3>
+                <div class="kanban-meta"><span>Marketplace</span><span>Listings</span></div>
+                <a href="https://www.classiccars.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/fvd-brombacher-logo.png" alt="FVD Brombacher" class="kanban-thumbnail">
+                <h3>FVD Brombacher — 993 Specialist (Europe)</h3>
+                <div class="kanban-meta"><span>Parts</span><span>Service</span></div>
+                <a href="https://www.fvd-brombacher.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/elferspot-logo.png" alt="Elferspot" class="kanban-thumbnail">
+                <h3>Elferspot — 993 Forum & Registry</h3>
+                <div class="kanban-meta"><span>Forum</span><span>Europe</span></div>
+                <a href="https://www.elhenry.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://r1-ndb9k.b-cdn.nl/classic-motorsports-logo.png" alt="Classic Motorsports" class="kanban-thumbnail">
+                <h3>Classic Motorsports — Enthusiast Magazine</h3>
+                <div class="kanban-meta"><span>Magazine</span><span>US</span></div>
+                <a href="https://www.classicmotorsports.com/">Open →</a>
+            </div>
+            
+            <div class="kanban-card">
+                <img src="https://content-hub.imgix.net/6IMxyLGiYiQ1wYuq2QurPH/7ed8ca2863e062eadb76ab0b39699fe2/Man_leaning_on_classic_Porsche_911_in_workshop.jpg?w=200" alt="Restoration" class="kanban-thumbnail">
+                <h3>YouTube — Valuation & Concours Channels</h3>
+                <div class="kanban-meta"><span>Video</span><span>Educational</span></div>
+                <a href="https://www.youtube.com/results?search_query=porsche+993+valuation">Open →</a>
+            </div>
+        </div>
+        
+        <!-- Back to Digest Link -->
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="/" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--porsche-black); text-decoration: none; font-weight: 600;">
+                ← Back to Daily Digest
+            </a>
+        </div>
+    </div>
 </body>
 </html>
