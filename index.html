@@ -274,6 +274,145 @@
         .history-link { color: var(--porsche-black); text-decoration: none; font-weight: 500; }
         .history-link:hover { color: var(--porsche-gold); }
         
+        /* ===== Premium Profile Cards ===== */
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .profile-card {
+            background: var(--porsche-white);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            border: 1px solid var(--porsche-light-gray);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-color: var(--porsche-gold);
+        }
+        
+        .profile-header-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .profile-icon-wrapper {
+            width: 64px;
+            height: 64px;
+            background: var(--porsche-black);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .profile-icon-wrapper svg {
+            fill: none;
+        }
+        
+        .profile-tag {
+            background: var(--porsche-light-gray);
+            color: var(--porsche-medium-gray);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+        
+        .profile-title-card {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-subtitle-card {
+            font-size: 0.875rem;
+            color: var(--porsche-medium-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .profile-description {
+            color: var(--porsche-medium-gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .profile-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--porsche-black);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+        }
+        
+        .profile-link:hover {
+            color: var(--porsche-gold);
+        }
+        
+        /* ===== Premium Spec Blocks ===== */
+        .specs-container {
+            background: var(--porsche-white);
+            border-radius: 1rem;
+            border: 1px solid var(--porsche-light-gray);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            overflow: hidden;
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--porsche-light-gray);
+        }
+        
+        .spec-block {
+            background: var(--porsche-white);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .spec-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--porsche-medium-gray);
+            font-weight: 600;
+        }
+        
+        .spec-value {
+            font-size: 1rem;
+            color: var(--porsche-black);
+            font-weight: 400;
+            line-height: 1.4;
+        }
+        
+        .section-subtitle {
+            color: var(--porsche-medium-gray);
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        
         /* ===== Footer ===== */
         footer {
             background: var(--porsche-black);
@@ -574,36 +713,59 @@
         <!-- Resources Section - 3 Porsche Profiles -->
         <section>
             <div class="section-header">
-                <h2 class="section-title"><span>🔗</span> Porsche Reference Profiles</h2>
-                <span style="color: #868686; font-size: 0.9rem;">Curated resource collections by community focus</span>
+                <h2 class="section-title"><span class="icon-suite">🔗</span> Porsche Reference Profiles</h2>
+                <span class="section-subtitle">Curated resource collections by community focus</span>
             </div>
             
-            <div class="news-grid">
-                <div class="news-card">
-                    <div class="news-content">
-                        <div class="news-source">🚗 Porsche Drivers</div>
-                        <h3>Road-Focused Community</h3>
-                        <p style="color: #868686; margin-bottom: 1rem;">Community resources for road-focused Porsche enthusiasts — eclectic, travel, meetups and lifestyle.</p>
-                        <a href="/previews/porsche_drivers.html" class="read-more">View Profile →</a>
+            <div class="profiles-grid">
+                <div class="profile-card">
+                    <div class="profile-header-card">
+                        <div class="profile-icon-wrapper">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7v10c0 5 8 15 10 15s10-10 10-15L12 2z" stroke="#000" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <span class="profile-tag">Community</span>
                     </div>
+                    <h3 class="profile-title-card">Porsche Drivers</h3>
+                    <p class="profile-subtitle-card">Road-Focused Community</p>
+                    <p class="profile-description">Community resources for road-focused Porsche enthusiasts — eclectic, travel, meetups and lifestyle.</p>
+                    <a href="/previews/porsche_drivers.html" class="profile-link">Open Profile →</a>
                 </div>
                 
-                <div class="news-card">
-                    <div class="news-content">
-                        <div class="news-source">💎 Porsche Perfection Collectors</div>
-                        <h3>Originality & Valuation</h3>
-                        <p style="color: #868686; margin-bottom: 1rem;">Focus: originality, low mileage, exclusivity and valuation for discerning 911 enthusiasts.</p>
-                        <a href="/previews/porsche_perfection_collectors.html" class="read-more">View Profile →</a>
+                <div class="profile-card">
+                    <div class="profile-header-card">
+                        <div class="profile-icon-wrapper">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7v10c0 5 8 15 10 15s10-10 10-15L12 2z" stroke="#000" stroke-width="2"/>
+                                <path d="M12 8v8" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M8 12h8" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <span class="profile-tag">Collectors</span>
                     </div>
+                    <h3 class="profile-title-card">Porsche Perfection Collectors</h3>
+                    <p class="profile-subtitle-card">Originality & Valuation</p>
+                    <p class="profile-description">Focus: originality, low mileage, exclusivity and valuation for discerning 911 enthusiasts.</p>
+                    <a href="/previews/porsche_perfection_collectors.html" class="profile-link">Open Profile →</a>
                 </div>
                 
-                <div class="news-card">
-                    <div class="news-content">
-                        <div class="news-source">⚡ Porsche Custom Community</div>
-                        <h3>Performance & Tuning</h3>
-                        <p style="color: #868686; margin-bottom: 1rem;">Open to modifications, performance upgrades, tuning and custom builds.</p>
-                        <a href="/previews/porsche_custom_community.html" class="read-more">View Profile →</a>
+                <div class="profile-card">
+                    <div class="profile-header-card">
+                        <div class="profile-icon-wrapper">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 16c1.65 0 3-.83 3-1.83V6c0-1.1-.9-2-2-2h-2c-1.1 0-2 .9-2 2v8.17c0 1-.85 1.83-3 1.83" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 16v6" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="8" cy="14" r="2" stroke="#000" stroke-width="2"/>
+                                <circle cx="16" cy="14" r="2" stroke="#000" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <span class="profile-tag">Custom</span>
                     </div>
+                    <h3 class="profile-title-card">Porsche Custom Community</h3>
+                    <p class="profile-subtitle-card">Performance & Tuning</p>
+                    <p class="profile-description">Open to modifications, performance upgrades, tuning and custom builds.</p>
+                    <a href="/previews/porsche_custom_community.html" class="profile-link">Open Profile →</a>
                 </div>
             </div>
         </section>
@@ -611,19 +773,43 @@
         <!-- Technical Specs Section -->
         <section>
             <div class="section-header">
-                <h2 class="section-title"><span>🔧</span> Technical Specifications</h2>
+                <h2 class="section-title"><span class="icon-suite">🔧</span> Technical Specifications</h2>
                 <span style="color: #868686; font-size: 0.9rem;">M64/21 Varioram • 993 Carrera 4S</span>
             </div>
             
-            <table class="specs-table">
-                <tbody>
-                    <tr><td>Engine</td><td>Flat-6 M64/21 Varioram, 3.6L, 282 hp</td></tr>
-                    <tr><td>Transmission</td><td>Manual 6-speed, viscous all-wheel drive</td></tr>
-                    <tr><td>Year</td><td>1996</td></tr>
-                    <tr><td>VIN</td><td>WP0AA2999TS320294</td></tr>
-                    <tr><td>Color</td><td>Arctic Silver Metallic (570)</td></tr>
-                </tbody>
-            </table>
+            <div class="specs-container">
+                <div class="specs-grid">
+                    <div class="spec-block">
+                        <span class="spec-label">Engine</span>
+                        <span class="spec-value">Flat-6 M64/21 Varioram<br>3.6L, 282 hp (210 kW)</span>
+                    </div>
+                    
+                    <div class="spec-block">
+                        <span class="spec-label">Transmission</span>
+                        <span class="spec-value">6-speed manual<br>Viscous all-wheel drive</span>
+                    </div>
+                    
+                    <div class="spec-block">
+                        <span class="spec-label">Year</span>
+                        <span class="spec-value">1996</span>
+                    </div>
+                    
+                    <div class="spec-block">
+                        <span class="spec-label">VIN</span>
+                        <span class="spec-value">WP0AA2999TS320294</span>
+                    </div>
+                    
+                    <div class="spec-block">
+                        <span class="spec-label">Color</span>
+                        <span class="spec-value">Arctic Silver Metallic (570)</span>
+                    </div>
+                    
+                    <div class="spec-block">
+                        <span class="spec-label">Chassis</span>
+                        <span class="spec-value">Wide-body (Turbo-look)<br>Suspension M030<br>Brembo 4-piston brakes</span>
+                    </div>
+                </div>
+            </div>
         </section>
         
         <!-- Archive History -->
@@ -767,9 +953,9 @@
             <div class="footer-column">
                 <h4>Reference Profiles</h4>
                 <ul>
-                    <li><a href="/Hermes-Workspace/porsche-sessions/01_Porsche_Drivers.md" target="_blank">Porsche Drivers Session</a></li>
-                    <li><a href="/Hermes-Workspace/porsche-sessions/02_Porsche_Perfection_Collectors.md" target="_blank">Porsche Perfection Collectors</a></li>
-                    <li><a href="/Hermes-Workspace/porsche-sessions/03_Porsche_Custom_Community.md" target="_blank">Porsche Custom Community</a></li>
+                    <li><a href="/previews/porsche_drivers.html" target="_blank">Porsche Drivers Profile</a></li>
+                    <li><a href="/previews/porsche_perfection_collectors.html" target="_blank">Porsche Perfection Collectors Profile</a></li>
+                    <li><a href="/previews/porsche_custom_community.html" target="_blank">Porsche Custom Community Profile</a></li>
                 </ul>
             </div>
         </div>
