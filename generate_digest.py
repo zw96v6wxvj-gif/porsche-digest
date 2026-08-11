@@ -592,6 +592,8 @@ def send_telegram_message(message, image_path=None):
                             bot_token = line.split("=", 1)[1].strip()
                         elif line.startswith("TELEGRAM_CHAT_ID="):
                             chat_id = line.split("=", 1)[1].strip()
+                        elif line.startswith("TELEGRAM_HOME_CHANNEL="):
+                            chat_id = line.split("=", 1)[1].strip()
             elif config_path.suffix == ".json":
                 with open(config_path) as f:
                     config = json.load(f)
