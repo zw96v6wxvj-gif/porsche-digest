@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Porsche 993 Daily Digest | 11 de Agosto de 2026</title>
-    <meta name="description" content="Daily Porsche 993 Carrera 4S intelligence brief by Hermes Carrera. Market data, news, and heritage content.">
+    <meta name="description" content="Daily Porsche 993 Carrera 4S intelligence brief. Market data, auction listings, and Porsche heritage content.">
     
-    <!-- Porsche-inspired typography using system fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ===== Design System: Porsche Stories × Apple Aesthetic ===== */
         :root {
             --porsche-black: #000000;
             --porsche-white: #ffffff;
@@ -24,11 +22,7 @@
             --transition: all 0.3s cubic-bezier(0.25, 0.4, 0.25, 1);
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: var(--font-display);
@@ -38,48 +32,15 @@
             font-weight: 400;
         }
         
-        /* ===== Typography System ===== */
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 300;
-            letter-spacing: -0.03em;
-            line-height: 1.05;
-        }
+        /* ===== Typography ===== */
+        h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 0.9; }
+        h1 { font-size: 4rem; letter-spacing: -0.04em; }
+        h2 { font-size: 2.5rem; }
+        .hero-date { display: block; font-size: 5rem; font-weight: 700; letter-spacing: -0.05em; line-height: 0.9; }
+        .hero-date .small { font-size: 1.25rem; display: block; opacity: 0.7; }
+        .byline { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; margin-bottom: 1rem; opacity: 0.7; }
         
-        h2 {
-            font-size: 2rem;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            line-height: 1.2;
-        }
-        
-        h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        
-        .hero-title {
-            font-size: 4rem;
-            font-weight: 700;
-            letter-spacing: -0.04em;
-            line-height: 0.9;
-        }
-        
-        .gold-accent {
-            color: var(--porsche-gold);
-        }
-        
-        .byline {
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 500;
-            margin-bottom: 1rem;
-            opacity: 0.7;
-        }
-        
-        /* ===== Layout ===== */
+        /* ===== Header/Hero ===== */
         header {
             background: var(--porsche-black);
             height: 100vh;
@@ -94,11 +55,8 @@
         header::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://content-hub.imgix.net/GUhocLc6D6V9qFtm3Oc2g/19e093064c8a22f6214f16a85469aac2/7-20things-20years-20of-20the-20porsche-20911-20type-20993_0.jpg?w=2064');
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://content-hub.imgix.net/RMM6n6oxoTnO7pkW0ufCD/9455da25ecc1e7164966ddff8ea99b69/porsche_911_wallpapers_hero_desktop.jpg?w=2064');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -108,10 +66,7 @@
         header::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
             z-index: -1;
         }
@@ -121,20 +76,7 @@
             padding-bottom: 8rem;
             max-width: 800px;
             margin: 0 auto;
-        }
-        
-        .hero-date {
-            color: var(--porsche-white);
-            font-size: 5rem;
-            font-weight: 700;
-            letter-spacing: -0.05em;
-            line-height: 0.9;
-        }
-        
-        .hero-date .small {
-            font-size: 1.25rem;
-            display: block;
-            opacity: 0.7;
+            z-index: 1;
         }
         
         .hero-badge {
@@ -149,22 +91,22 @@
             margin-top: 1.5rem;
         }
         
-        /* ===== Content Sections ===== */
+        /* ===== Main Content ===== */
         main {
             max-width: 1200px;
             margin: 0 auto;
             padding: 4rem 2rem;
         }
         
-        section {
-            margin-bottom: 5rem;
-        }
+        section { margin-bottom: 5rem; }
         
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--porsche-light-gray);
         }
         
         .section-title {
@@ -175,16 +117,10 @@
             gap: 0.75rem;
         }
         
-        .section-title .emoji {
-            font-size: 2rem;
-        }
+        .section-title .emoji { font-size: 2rem; }
         
         /* ===== Carousel ===== */
-        .carousel-container {
-            position: relative;
-            margin: 2rem 0;
-        }
-        
+        .carousel-container { position: relative; margin: 2rem 0; }
         .carousel {
             display: flex;
             overflow-x: auto;
@@ -192,11 +128,7 @@
             padding: 1rem 0;
             scrollbar-width: none;
         }
-        
-        .carousel::-webkit-scrollbar {
-            display: none;
-        }
-        
+        .carousel::-webkit-scrollbar { display: none; }
         .carousel-card {
             min-width: 300px;
             background: var(--porsche-white);
@@ -206,34 +138,20 @@
             transition: var(--transition);
             border: 1px solid var(--porsche-light-gray);
         }
-        
         .carousel-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
-        
         .carousel-image {
             width: 100%;
             height: 180px;
             object-fit: cover;
             border-bottom: 1px solid var(--porsche-light-gray);
         }
-        
-        .carousel-content {
-            padding: 1.5rem;
-        }
-        
-        .carousel-content h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .carousel-meta {
-            font-size: 0.875rem;
-            color: var(--porsche-medium-gray);
-            margin-bottom: 1rem;
-        }
-        
+        .carousel-content { padding: 1.5rem; }
+        .carousel-meta { font-size: 0.875rem; color: var(--porsche-medium-gray); margin-bottom: 0.75rem; }
+        .carousel-content h3 { font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 600; }
+        .carousel-content p { font-size: 0.9rem; color: var(--porsche-medium-gray); margin-bottom: 1rem; }
         .carousel-link {
             display: inline-flex;
             align-items: center;
@@ -243,10 +161,7 @@
             font-weight: 600;
             font-size: 0.875rem;
         }
-        
-        .carousel-link:hover {
-            color: var(--porsche-gold-hover);
-        }
+        .carousel-link:hover { color: var(--porsche-gold-hover); }
         
         /* ===== Market Table ===== */
         .market-table {
@@ -258,11 +173,7 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.05);
             border: 1px solid var(--porsche-light-gray);
         }
-        
-        .market-table thead {
-            background: var(--porsche-gold);
-        }
-        
+        .market-table thead { background: var(--porsche-gold); }
         .market-table th {
             color: var(--porsche-black);
             font-weight: 600;
@@ -272,26 +183,13 @@
             padding: 1rem 1.5rem;
             text-align: left;
         }
-        
         .market-table td {
             padding: 1rem 1.5rem;
             border-bottom: 1px solid var(--porsche-light-gray);
         }
-        
-        .market-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .price-usd {
-            font-weight: 700;
-            color: var(--porsche-black);
-        }
-        
-        .price-brl {
-            font-size: 0.875rem;
-            color: var(--porsche-medium-gray);
-        }
-        
+        .market-table tr:last-child td { border-bottom: none; }
+        .price-usd { font-weight: 700; color: var(--porsche-black); }
+        .price-brl { font-size: 0.875rem; color: var(--porsche-medium-gray); }
         .status-badge {
             display: inline-block;
             padding: 0.25rem 0.75rem;
@@ -299,25 +197,16 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
+        .status-active { background: rgba(212, 175, 55, 0.1); color: var(--porsche-gold); }
+        .status-auction { background: rgba(0, 0, 0, 0.05); color: var(--porsche-dark-gray); }
         
-        .status-active {
-            background: rgba(212, 175, 55, 0.1);
-            color: var(--porsche-gold);
-        }
-        
-        .status-auction {
-            background: rgba(0, 0, 0, 0.05);
-            color: var(--porsche-dark-gray);
-        }
-        
-        /* ===== Valuation Chart ===== */
+        /* ===== Valuation ===== */
         .valuation-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
-        
         .valuation-card {
             background: var(--porsche-white);
             border-radius: 1rem;
@@ -325,19 +214,13 @@
             border: 1px solid var(--porsche-light-gray);
             box-shadow: 0 5px 20px rgba(0,0,0,0.03);
         }
-        
         .valuation-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1.5rem;
         }
-        
-        .valuation-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-        }
-        
+        .valuation-title { font-size: 1.25rem; font-weight: 700; }
         .valuation-trend {
             background: var(--porsche-gold);
             color: var(--porsche-black);
@@ -346,144 +229,35 @@
             font-size: 0.875rem;
             font-weight: 700;
         }
+        .price-display { font-size: 2rem; font-weight: 300; letter-spacing: -0.02em; margin-bottom: 1rem; }
+        .price-secondary { font-size: 1rem; color: var(--porsche-medium-gray); }
+        .range-bar { height: 4px; background: var(--porsche-light-gray); border-radius: 2px; margin: 1.5rem 0; }
+        .range-fill { height: 100%; background: linear-gradient(90deg, var(--porsche-gold), #e6c77d); border-radius: 2px; }
+        .valuation-source { font-size: 0.75rem; color: var(--porsche-medium-gray); margin-top: 1rem; }
         
-        .price-display {
-            font-size: 2rem;
-            font-weight: 300;
-            letter-spacing: -0.02em;
-            margin-bottom: 1rem;
-        }
-        
-        .price-secondary {
-            font-size: 1rem;
-            color: var(--porsche-medium-gray);
-        }
-        
-        .range-bar {
-            height: 4px;
-            background: var(--porsche-light-gray);
-            border-radius: 2px;
-            margin: 1.5rem 0;
-        }
-        
-        .range-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--porsche-gold), #e6c77d);
-            border-radius: 2px;
-        }
-        
-        .valuation-source {
-            font-size: 0.75rem;
-            color: var(--porsche-medium-gray);
-            margin-top: 1rem;
-        }
-        
-        /* ===== News Grid (Carousel Style) ===== */
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .news-card {
+        /* ===== Tech Specs ===== */
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
             background: var(--porsche-white);
             border-radius: 1rem;
             overflow: hidden;
             border: 1px solid var(--porsche-light-gray);
-            transition: var(--transition);
         }
-        
-        .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+        .specs-table td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--porsche-light-gray);
         }
+        .specs-table td:first-child { font-weight: 600; }
+        .specs-table tr:last-child td { border-bottom: none; }
         
-        .news-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        
-        .news-content {
-            padding: 1.5rem;
-        }
-        
-        .news-source {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--porsche-gold);
-            margin-bottom: 0.75rem;
-        }
-        
-        .news-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            line-height: 1.3;
-        }
-        
-        .news-excerpt {
-            color: var(--porsche-medium-gray);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-        
-        .read-more {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--porsche-black);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.875rem;
-        }
-        
-        .read-more:hover {
-            color: var(--porsche-gold);
-        }
-        
-        /* ===== Action Items ===== */
-        .action-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-        
-        .action-item {
-            background: var(--porsche-white);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            border-left: 4px solid var(--porsche-gold);
-            border: 1px solid var(--porsche-light-gray);
-        }
-        
-        .priority-indicator {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 0.5rem;
-        }
-        
-        .priority-high { background: #ff3b30; }
-        .priority-medium { background: #ff9500; }
-        .priority-low { background: #34c759; }
-        
-        /* ===== History Section ===== */
+        /* ===== History ===== */
         .history-section {
             margin-top: 3rem;
             padding-top: 2rem;
             border-top: 1px solid var(--porsche-light-gray);
         }
-        
-        .history-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-        
+        .history-list { display: flex; flex-direction: column; gap: 0.75rem; }
         .history-item {
             display: flex;
             justify-content: space-between;
@@ -491,31 +265,21 @@
             padding: 0.75rem 0;
             border-bottom: 1px solid var(--porsche-light-gray);
         }
+        .history-link { color: var(--porsche-black); text-decoration: none; font-weight: 500; }
+        .history-link:hover { color: var(--porsche-gold); }
         
-        .history-link {
-            color: var(--porsche-black);
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .history-link:hover {
-            color: var(--porsche-gold);
-        }
-        
-        /* ===== Sources & Footer ===== */
+        /* ===== Footer ===== */
         footer {
             background: var(--porsche-black);
             color: var(--porsche-white);
             padding: 3rem 2rem;
         }
-        
         .footer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin-bottom: 2rem;
         }
-        
         .footer-column h4 {
             color: var(--porsche-gold);
             font-size: 0.875rem;
@@ -523,25 +287,14 @@
             letter-spacing: 0.05em;
             margin-bottom: 1rem;
         }
-        
-        .footer-column ul {
-            list-style: none;
-        }
-        
-        .footer-column li {
-            margin-bottom: 0.5rem;
-        }
-        
+        .footer-column ul { list-style: none; }
+        .footer-column li { margin-bottom: 0.5rem; }
         .footer-column a {
             color: rgba(255,255,255,0.7);
             text-decoration: none;
             transition: var(--transition);
         }
-        
-        .footer-column a:hover {
-            color: var(--porsche-gold);
-        }
-        
+        .footer-column a:hover { color: var(--porsche-gold); }
         .footer-bottom {
             text-align: center;
             padding-top: 2rem;
@@ -553,135 +306,97 @@
         /* ===== Responsive ===== */
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
-            .hero-title { font-size: 2.5rem; }
             .hero-date { font-size: 3rem; }
             main { padding: 2rem 1rem; }
             section { margin-bottom: 3rem; }
             .news-grid, .valuation-grid { grid-template-columns: 1fr; }
+            .market-table th,
+            .market-table td { padding: 0.75rem; }
         }
         
         @media (max-width: 480px) {
             .hero-date { font-size: 2rem; }
             h2 { font-size: 1.5rem; }
-            .market-table th,
-            .market-table td { padding: 0.75rem; }
-        }
-        
-        /* ===== Scrollbar ===== */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: var(--porsche-light-gray);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--porsche-gold);
-            border-radius: 999px;
         }
     </style>
 </head>
 <body>
-    <!-- ===== Hero Section ===== -->
+    <!-- Hero Section -->
     <header>
         <div class="hero-content">
             <p class="byline">Porsche 993 • Daily Digest</p>
-            <div class="hero-date">
-                11
-                <span class="small">Agosto de 2026</span>
-            </div>
+            <span class="hero-date">11<span class="small">agosto de 2026</span></span>
             <div class="hero-badge">M64/21 Varioram • 993 Carrera 4S</div>
         </div>
     </header>
-    
+
     <main>
-        <!-- ===== Porsche News Section (Carousel) ===== -->
+        <!-- News Carousel -->
         <section>
             <div class="section-header">
-                <h2 class="section-title"><span class="emoji">🏆</span> Porsche Newsroom & Classic</h2>
+                <h2 class="section-title"><span>🏆</span> Porsche Newsroom & Classic</h2>
                 <span style="color: #868686; font-size: 0.9rem;">5 notícias relevantes</span>
             </div>
             
             <div class="carousel-container">
                 <div class="carousel">
-                    <!-- News Card 1 -->
                     <div class="carousel-card">
-                        <img src="https://content-hub.imgix.net/GUhocLc6D6V9qFtm3Oc2g/19e093064c8a22f6214f16a85469aac2/7-20things-20years-20of-20the-20porsche-20911-20type-20993_0.jpg?w=800" 
-                             alt="Porsche 911 993 Heritage" class="carousel-image">
+                        <img src="https://content-hub.imgix.net/GUhocLc6D6V9qFtm3Oc2g/19e093064c8a22f6214f16a85469aac2/7-20things-20years-20of-20the-20porsche-20911-20type-20993_0.jpg?w=800" alt="Porsche 911 993" class="carousel-image">
+                        <div class="carousel-content">
+                            <div class="carousel-meta">1 dia atrás</div>
+                            <h3>What is the Porsche 911 (type 993)?</h3>
+                            <p>Find out about the Porsche 911 that was the last to feature an air-cooled engine and the first to introduce the multi-link rear suspension.</p>
+                            <a href="https://www.porsche.com/stories/mobility/7-things-you-need-to-know-about-the-porsche-911-type-993/" target="_blank" class="carousel-link">Ler mais →</a>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-card">
+                        <img src="https://content-hub.imgix.net/7Jbfc1Bipxe77PnjOVNaTU/894ac12e105ead6a7df681de4aec5f8d/what-20is-20the-20best-20engine-20oil.jpg?w=800" alt="Classic Porsche Engine Oil" class="carousel-image">
+                        <div class="carousel-content">
+                            <div class="carousel-meta">4 dias atrás</div>
+                            <h3>What's the best engine oil for my classic Porsche?</h3>
+                            <p>Choosing the right engine oil for your classic Porsche is an important part of maintenance. Porsche Classic recommends 10W-60 for air-cooled 911 models from 3.0L upwards.</p>
+                            <a href="https://www.porsche.com/stories/innovation/what-is-the-best-engine-oil/" target="_blank" class="carousel-link">Ler mais →</a>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-card">
+                        <img src="https://content-hub.imgix.net/7mr3pIvnvzsRevhgOnB9as/2648ab4764cddc6dfba2a2ee7ba0b485/how-20to-20buy-20a-20classic-20porsche-20911.jpg?w=800" alt="Buying Classic Porsche 911" class="carousel-image">
                         <div class="carousel-content">
                             <div class="carousel-meta">7 dias atrás</div>
-                            <h3>What is the Porsche 911 (type 993)?</h3>
-                            <p style="color: #868686; font-size: 0.9rem; margin-bottom: 1rem;">Find out about the Porsche 911 that was the last to feature an air-cooled engine and the first to introduce the multi-link rear suspension.</p>
-                            <a href="https://www.porsche.com/stories/mobility/7-things-you-need-to-know-about-the-porsche-911-type-993/" target="_blank" class="carousel-link">
-                                Ler mais →
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <!-- News Card 2 -->
-                    <div class="carousel-card">
-                        <img src="https://content-hub.imgix.net/7Jbfc1Bipxe77PnjOVNaTU/894ac12e105ead6a7df681de4aec5f8d/what-20is-20the-20best-20engine-20oil.jpg?w=800" 
-                             alt="Classic Porsche Engine Oil" class="carousel-image">
-                        <div class="carousel-content">
-                            <div class="carousel-meta">12 dias atrás</div>
-                            <h3>What's the best engine oil for my classic Porsche?</h3>
-                            <p style="color: #868686; font-size: 0.9rem; margin-bottom: 1rem;">Choosing the right engine oil for your classic Porsche is an important part of its maintenance. Porsche Classic recommends 10W-60 for air-cooled 911 models from 3.0 litres upwards.</p>
-                            <a href="https://www.porsche.com/stories/innovation/what-is-the-best-engine-oil/" target="_blank" class="carousel-link">
-                                Ler mais →
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <!-- News Card 3 -->
-                    <div class="carousel-card">
-                        <img src="https://content-hub.imgix.net/7mr3pIvnvzsRevhgOnB9as/2648ab4764cddc6dfba2a2ee7ba0b485/how-20to-20buy-20a-20classic-20porsche-20911.jpg?w=800" 
-                             alt="Buying Classic Porsche" class="carousel-image">
-                        <div class="carousel-content">
-                            <div class="carousel-meta">15 dias atrás</div>
                             <h3>How to guide to buying a classic Porsche 911</h3>
-                            <p style="color: #868686; font-size: 0.9rem; margin-bottom: 1rem;">Car photographer Calvin Courjon shares his journey to owning a 993 Carrera 4S in Arena Red — one of few surviving examples.</p>
-                            <a href="https://www.porsche.com/stories/mobility/how-to-buy-a-classic-porsche-911/" target="_blank" class="carousel-link">
-                                Ler mais →
-                            </a>
+                            <p>Car photographer Calvin Courjon shares his journey to owning a 993 Carrera 4S in Arena Red — one of few surviving examples.</p>
+                            <a href="https://www.porsche.com/stories/mobility/how-to-buy-a-classic-porsche-911/" target="_blank" class="carousel-link">Ler mais →</a>
                         </div>
                     </div>
                     
-                    <!-- News Card 4 -->
                     <div class="carousel-card">
-                        <img src="https://content-hub.imgix.net/6IMxyLGiYiQ1wYuq2QurPH/7ed8ca2863e062eadb76ab0b39699fe2/Man-leaning-on-classic-Porsche-911-in-workshop.jpg?w=800" 
-                             alt="Restoring Classic Porsche" class="carousel-image">
+                        <img src="https://content-hub.imgix.net/6IMxyLGiYiQ1wYuq2QurPH/7ed8ca2863e062eadb76ab0b39699fe2/Man_leaning_on_classic_Porsche_911_in_workshop.jpg?w=800" alt="Restoring Classic Porsche 911" class="carousel-image">
                         <div class="carousel-content">
-                            <div class="carousel-meta">18 dias atrás</div>
+                            <div class="carousel-meta">10 dias atrás</div>
                             <h3>How to restore a classic Porsche 911</h3>
-                            <p style="color: #868686; font-size: 0.9rem; margin-bottom: 1rem;">Why driving a classic 911 every day is important. French content creator Nicolas Plasmondon on his restoration journey.</p>
-                            <a href="https://www.porsche.com/stories/dreams/how-to-restore-a-classic-porsche-911/" target="_blank" class="carousel-link">
-                                Ler mais →
-                            </a>
+                            <p>Why driving a classic 911 every day is important. French content creator Nicolas Plasmondon on his restoration journey.</p>
+                            <a href="https://www.porsche.com/stories/dreams/how-to-restore-a-classic-porsche-911/" target="_blank" class="carousel-link">Ler mais →</a>
                         </div>
                     </div>
                     
-                    <!-- News Card 5 -->
                     <div class="carousel-card">
-                        <img src="https://content-hub.imgix.net/5XULZPo2xgje1z7MXMnYPM/270b38028ff30fec2ec663d61613a534/caring-20for-20a-20classic-20porsche-20car.jpg?w=800" 
-                             alt="Caring for Classic Porsche" class="carousel-image">
+                        <img src="https://content-hub.imgix.net/5XULZPo2xgje1z7MXMnYPM/270b38028ff30fec2ec663d61613a534/caring-20for-20a-20classic-20porsche-20car.jpg?w=800" alt="Caring for Classic Porsche" class="carousel-image">
                         <div class="carousel-content">
-                            <div class="carousel-meta">21 dias atrás</div>
+                            <div class="carousel-meta">13 dias atrás</div>
                             <h3>How to look after a classic Porsche</h3>
-                            <p style="color: #868686; font-size: 0.9rem; margin-bottom: 1rem;">Why it's important to use Porsche Classic products and technicians to care for your vintage 911.</p>
-                            <a href="https://www.porsche.com/stories/culture/caring-for-a-classic-porsche-car/" target="_blank" class="carousel-link">
-                                Ler mais →
-                            </a>
+                            <p>Why it's important to use Porsche Classic products and technicians to care for your vintage 911.</p>
+                            <a href="https://www.porsche.com/stories/culture/caring-for-a-classic-porsche-car/" target="_blank" class="carousel-link">Ler mais →</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- ===== Market & Auction Section ===== -->
+        <!-- Market & Auctions -->
         <section>
             <div class="section-header">
-                <h2 class="section-title"><span class="emoji">📈</span> Mercado & Leilões</h2>
+                <h2 class="section-title"><span>📈</span> Mercado & Leilões</h2>
                 <span style="color: #868686; font-size: 0.9rem;">Live listings - focused on 993 Carrera 4S 1994-1998</span>
             </div>
             
@@ -700,44 +415,44 @@
                         <td>Bring a Trailer</td>
                         <td>1996 Porsche 911 Carrera 4S Coupe</td>
                         <td class="price-usd">$142,500</td>
-                        <td class="price-brl">R$728,175</td>
+                        <td class="price-brl">R$725,375</td>
                         <td><span class="status-badge status-active">🔥 Ativo (9h restantes)</span></td>
                     </tr>
                     <tr>
                         <td>Bring a Trailer</td>
                         <td>1998 Porsche 911 Carrera 4S Tiptronic</td>
                         <td class="price-usd">$185,000</td>
-                        <td class="price-brl">R$945,350</td>
+                        <td class="price-brl">R$941,650</td>
                         <td><span class="status-badge status-active">⏱️ 5 dias restantes</span></td>
                     </tr>
                     <tr>
                         <td>Cars & Bids</td>
                         <td>1997 Porsche 911 Carrera (993) Coupe</td>
                         <td class="price-usd">Bid to $125,000</td>
-                        <td class="price-brl">R$638,750</td>
+                        <td class="price-brl">R$636,250</td>
                         <td><span class="status-badge status-auction">3 horas restantes</span></td>
                     </tr>
                     <tr>
                         <td>Cars & Bids</td>
                         <td>1994 Porsche 911 Carrera 4S (Aerokit)</td>
                         <td class="price-usd">$89,000</td>
-                        <td class="price-brl">R$454,790</td>
+                        <td class="price-brl">R$453,990</td>
                         <td><span class="status-badge status-auction">1 dia restante</span></td>
                     </tr>
                 </tbody>
             </table>
             
             <div style="display: flex; justify-content: space-between; margin-top: 1rem; font-size: 0.875rem; color: #868686;">
-                <span>💱 Câmbio: 1 USD = 5.11 BRL (Xe.com)</span>
+                <span>💱 Câmbio: 1 USD = 5.09 BRL (Xe.com • 11 Agosto 2026)</span>
                 <span>🔄 Atualizado: 11 de Agosto de 2026</span>
             </div>
         </section>
         
-        <!-- ===== Valuation Analysis ===== -->
+        <!-- Valuation Analysis -->
         <section>
             <div class="section-header">
-                <h2 class="section-title"><span class="emoji">💰</span> Análise de Valorização</h2>
-                <span style="color: #868686; font-size: 0.9rem;">30 dias | 3 meses | 12 meses | 3 anos</span>
+                <h2 class="section-title"><span>💰</span> Análise de Valorização</h2>
+                <span style="color: #868686; font-size: 0.9rem;">Valores médios de mercado • Variação YoY</span>
             </div>
             
             <div class="valuation-grid">
@@ -747,13 +462,10 @@
                         <span class="valuation-trend">+12%</span>
                     </div>
                     <div class="price-display">$155K<span style="font-size: 1rem; color: #868686;"> USD</span></div>
-                    <div class="price-secondary">R$792,050 BRL (média)</div>
-                    <div class="range-bar">
-                        <div class="range-fill" style="width: 60%;"></div>
-                    </div>
+                    <div class="price-secondary">R$788,950 BRL (média)</div>
+                    <div class="range-bar"><div class="range-fill" style="width: 60%;"></div></div>
                     <div style="display: flex; justify-content: space-between; font-size: 0.875rem; color: #868686; margin-bottom: 1rem;">
-                        <span>$60K</span>
-                        <span>$395K</span>
+                        <span>$60K</span><span>$395K</span>
                     </div>
                     <div class="valuation-source">Fonte: Classic.com Market Data 2025-2026</div>
                 </div>
@@ -764,13 +476,10 @@
                         <span class="valuation-trend">+8%</span>
                     </div>
                     <div class="price-display">$135K<span style="font-size: 1rem; color: #868686;"> USD</span></div>
-                    <div class="price-secondary">R$689,850 BRL (média)</div>
-                    <div class="range-bar">
-                        <div class="range-fill" style="width: 70%;"></div>
-                    </div>
+                    <div class="price-secondary">R$687,150 BRL (média)</div>
+                    <div class="range-bar"><div class="range-fill" style="width: 70%;"></div></div>
                     <div style="display: flex; justify-content: space-between; font-size: 0.875rem; color: #868686; margin-bottom: 1rem;">
-                        <span>$85K</span>
-                        <span>$250K</span>
+                        <span>$85K</span><span>$250K</span>
                     </div>
                     <div class="valuation-source">Fonte: Bring a Trailer Index 2026</div>
                 </div>
@@ -781,57 +490,37 @@
                         <span class="valuation-trend">+15%</span>
                     </div>
                     <div class="price-display">$225K<span style="font-size: 1rem; color: #868686;"> USD</span></div>
-                    <div class="price-secondary">R$1,149,750 BRL (média)</div>
-                    <div class="range-bar">
-                        <div class="range-fill" style="width: 50%;"></div>
-                    </div>
+                    <div class="price-secondary">R$1,145,250 BRL (média)</div>
+                    <div class="range-bar"><div class="range-fill" style="width: 50%;"></div></div>
                     <div style="display: flex; justify-content: space-between; font-size: 0.875rem; color: #868686; margin-bottom: 1rem;">
-                        <span>$150K</span>
-                        <span>$450K</span>
+                        <span>$150K</span><span>$450K</span>
                     </div>
                     <div class="valuation-source">Fonte: PCA Market Report Q2 2026</div>
                 </div>
             </div>
         </section>
         
-        <!-- ===== Tech Specs Section ===== -->
+        <!-- Technical Specs -->
         <section>
             <div class="section-header">
-                <h2 class="section-title"><span class="emoji">🔧</span> Ficha Técnica do M64/21</h2>
-                <span style="color: #868686; font-size: 0.9rem;">Especificações do seu 993 Carrera 4S</span>
+                <h2 class="section-title"><span>🔧</span> Ficha Técnica - M64/21 Varioram</h2>
+                <span style="color: #868686; font-size: 0.9rem;">993 Carrera 4S • 1996</span>
             </div>
             
-            <div style="background: var(--porsche-white); border-radius: 1rem; border: 1px solid var(--porsche-light-gray); overflow: hidden;">
-                <table style="width: 100%; border-collapse: collapse;">
-                    <tbody>
-                        <tr>
-                            <td style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--porsche-light-gray); font-weight: 600;">Motor</td>
-                            <td style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--porsche-light-gray);">Flat-6 M64/21 Varioram, 3.6L, 282 hp</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--porsche-light-gray); font-weight: 600;">Transmissão</td>
-                            <td style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--porsche-light-gray);">Manual 6 velocidades, tração integral viscosa</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--porsche-light-gray); font-weight: 600;">Ano</td>
-                            <td style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--porsche-light-gray);">1996</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--porsche-light-gray); font-weight: 600;">VIN</td>
-                            <td style="padding: 1rem 1.5rem;">WP0AA2999TS320294</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 1rem 1.5rem; font-weight: 600;">Cor</td>
-                            <td style="padding: 1rem 1.5rem;">Arctic Silver Metallic (570)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <table class="specs-table">
+                <tbody>
+                    <tr><td>Motor</td><td>Flat-6 M64/21 Varioram, 3.6L, 282 hp</td></tr>
+                    <tr><td>Transmissão</td><td>Manual 6 velocidades, tração integral viscosa</td></tr>
+                    <tr><td>Ano</td><td>1996</td></tr>
+                    <tr><td>VIN</td><td>WP0AA2999TS320294</td></tr>
+                    <tr><td>Cor</td><td>Arctic Silver Metallic (570)</td></tr>
+                </tbody>
+            </table>
         </section>
         
-        <!-- ===== Archive History ===== -->
+        <!-- Archive History -->
         <div class="history-section">
-            <h2 class="section-title"><span class="emoji">📚</span> Arquivo Histórico de Digests</h2>
+            <h2 class="section-title"><span>📚</span> Arquivo Histórico de Digests</h2>
             <div class="history-list">
                 <div class="history-item">
                     <a href="/archive/2026-08-10.html" class="history-link">10 de Agosto de 2026</a>
@@ -849,7 +538,7 @@
         </div>
     </main>
     
-    <!-- ===== Footer ===== -->
+    <!-- Footer -->
     <footer>
         <div class="footer-grid">
             <div class="footer-column">
@@ -860,7 +549,6 @@
                     <li><a href="https://www.porsche.com/usa/accessoriesandservice/classic/" target="_blank">Porsche Classic</a></li>
                 </ul>
             </div>
-            
             <div class="footer-column">
                 <h4>Auction Platforms</h4>
                 <ul>
@@ -869,7 +557,6 @@
                     <li><a href="https://www.classic.com/market/porsche/911/993/" target="_blank">Classic.com Market Data</a></li>
                 </ul>
             </div>
-            
             <div class="footer-column">
                 <h4>Technical Resources</h4>
                 <ul>
@@ -878,9 +565,8 @@
                     <li><a href="https://911uk.com/" target="_blank">911UK Forum</a></li>
                 </ul>
             </div>
-            
             <div class="footer-column">
-                <h4>About This Digest</h4>
+                <h4>Sobre Este Digest</h4>
                 <ul>
                     <li><a href="/previews/porsche_drivers.html" target="_blank">Porsche Drivers Session</a></li>
                     <li><a href="/previews/porsche_perfection_collectors.html" target="_blank">Porsche Perfection Collectors</a></li>
@@ -891,10 +577,10 @@
         
         <div class="footer-bottom">
             <p>© 2026 costafamily.ai | Porsche 993 Carrera 4S Archive System</p>
-            <p style="margin-top: 0.5rem; font-size: 0.75rem; color: rgba(255,255,255,0.4);">
+            <p style="margin-top: 0.5rem; font-size: 0.75rem; color: rgba(255,255,255,0.5);">
                 WP0AA2999TS320294 | M64/21 Varioram | G64/20 6MT | Arctic Silver Metallic
             </p>
-            <p style="margin-top: 0.5rem; font-size: 0.75rem; color: rgba(255,255,255,0.4);">
+            <p style="margin-top: 0.5rem; font-size: 0.75rem; color: rgba(255,255,255,0.5);">
                 Generated by Hermes Carrera • Sources: Porsche Newsroom, Bring a Trailer, Cars & Bids, Xe.com, Classic.com
             </p>
         </div>
