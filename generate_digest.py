@@ -588,8 +588,11 @@ def send_telegram_message(message, image_path=None):
             if config_path.suffix == ".env":
                 with open(config_path) as f:
                     for line in f:
-                        if line.startswith("TELEGRAM_BOT_TOKEN="):
-                            bot_token = line.split("=", 1)[1].strip()
+                        # Check both env var names
+                        if line.startswith("TELEGRAM_BOT_TOKEN=") or line.startswith("TELEGRAM_BOT_API_KEY="):
+                            token_val = line.split("=", 1)[1].strip()
+                            if token_val and not token_val.startswith("***"):
+                                bot_token = token_val
                         elif line.startswith("TELEGRAM_CHAT_ID="):
                             chat_id = line.split("=", 1)[1].strip()
                         elif line.startswith("TELEGRAM_HOME_CHANNEL="):
@@ -599,6 +602,13 @@ def send_telegram_message(message, image_path=None):
                     config = json.load(f)
                     bot_token = config.get("bot_token")
                     chat_id = config.get("chat_id")
+    
+    # If no bot token (masked in .env), we can't send via API directly
+    if not bot_token or bot_token.startswith("***"):
+        print("⚠️ Bot token masked in config - skipping Telegram API send")
+        print("\n📝 Telegram message preview:")
+        print(message)
+        return False
     
     if not bot_token or not chat_id:
         print("❌ Telegram config not found")
