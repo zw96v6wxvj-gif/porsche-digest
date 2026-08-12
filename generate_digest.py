@@ -225,27 +225,79 @@ def get_market_valuation():
         }
     }
 
+def get_daily_hero_image(date_str=None):
+    """Get today's air-cooled Porsche hero image deterministically."""
+    if date_str is None:
+        date_str = datetime.now().strftime("%Y-%m-%d")
+    
+    # Curated collection of air-cooled Porsche hero images
+    aircooled_images = [
+        {
+            "title": "What is the Porsche 911 (type 993)?",
+            "image_url": "https://content-hub.imgix.net/GUhocLc6D6V9qFtm3Oc2g/19e093064c8a22f6214f16a85469aac2/7-20things-20you-20need-20to-20know-20about-20the-20porsche-20911-20type-20993.jpg?w=1920",
+            "source": "Porsche Stories",
+            "description": "The last air-cooled 911 generation in its natural habitat.",
+            "model": "911 (993)"
+        },
+        {
+            "title": "What's the best engine oil for my classic Porsche?",
+            "image_url": "https://content-hub.imgix.net/7Jbfc1Bipxe77PnjOVNaTU/894ac12e105ead6a7df681de4aec5f8d/what-20is-20the-20best-20engine-20oil.jpg?w=1920",
+            "source": "Porsche Stories",
+            "description": "Detail shots of classic Porsche air-cooled engines.",
+            "model": "911 (964/993)"
+        },
+        {
+            "title": "How to guide to buying a classic Porsche 911",
+            "image_url": "https://content-hub.imgix.net/7mr3pIvnvzsRevhgOnB9as/2648ab4764cddc6dfba2a2ee7ba0b485/how-20to-20buy-20a-20classic-20porsche-20911.jpg?w=1920",
+            "source": "Porsche Stories",
+            "description": "A pristine 911 in a scenic alpine setting.",
+            "model": "911 (964)"
+        }
+    ]
+    
+    import random
+    random.seed(hash(date_str))
+    image = random.choice(aircooled_images)
+    
+    return {
+        'date': date_str,
+        **image
+    }
+
+
 def generate_html_template(date_str, articles, auctions, valuation, rate):
     """Generate the HTML digest using the premium Porsche Stories-inspired template."""
     
     # Format date for hero
     date_obj = datetime.strptime(date_str, "%Y-%m-%d")
-    formatted_date = date_obj.strftime("%d de %B de %Y").capitalize()
+    formatted_date = date_obj.strftime("%B %d, %Y")
     day_num = date_obj.strftime("%d")
-    month_year = date_obj.strftime("%B de %Y").capitalize()
-    day_name = date_obj.strftime("%A").capitalize()
+    month_year = date_obj.strftime("%B %Y")
+    day_name = date_obj.strftime("%A")
     
-    # Format auction prices
+    # Get today's air-cooled Porsche hero image
+    hero_image = get_daily_hero_image(date_str)
+    
+    # Format auction prices with clickable platform links
+    platform_urls = {
+        "Bring a Trailer": "https://bringatrailer.com/",
+        "Cars & Bids": "https://carsandbids.com/",
+    }
+    
     auction_rows = ""
     for a in auctions:
         price_brl = convert_to_brl(a['price_usd'], rate)
+        platform = a['source']
+        platform_url = platform_urls.get(platform, "#")
+        status_en = a['status'].replace("Ativo", "Active").replace("Ativo (9h restantes)", "Active").replace("5 dias restantes", "Ending Soon").replace("3 horas restantes", "Ending").replace("1 dia restante", "Ending")
+        
         auction_rows += f"""
                     <tr>
-                        <td>{a['source']}</td>
+                        <td><a href="{platform_url}" target="_blank" class="platform-link">{platform}</a></td>
                         <td>{a['title']}</td>
                         <td class="price-usd">{format_currency(a['price_usd'], 'USD')}</td>
                         <td class="price-brl">{format_currency(price_brl, 'BRL')}</td>
-                        <td><span class="status-badge status-auction">{a['status']}</span></td>
+                        <td><span class="status-badge status-auction">{status_en}</span></td>
                     </tr>"""
     
     # Format news cards
@@ -259,11 +311,11 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
                     <div class="carousel-card">
                         <img src="{image_url}" alt="{article['title']}" class="carousel-image">
                         <div class="carousel-content">
-                            <div class="carousel-meta">{article.get('days_ago', '5')} dias atrás</div>
+                            <div class="carousel-meta">{article.get('days_ago', '5')} days ago</div>
                             <h3>{article['title']}</h3>
                             <p style="color: #868686; font-size: 0.9rem; margin-bottom: 1rem;">{article.get('description', '')[:150]}...</p>
                             <a href="{article['url']}" target="_blank" class="carousel-link">
-                                Ler mais →
+                                Read more →
                             </a>
                         </div>
                     </div>"""
@@ -286,7 +338,7 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
                         <span class="valuation-trend">{data['yoy_change']}</span>
                     </div>
                     <div class="price-display">{avg_usd.split('.')[0].split('$')[1]}K<span style="font-size: 1rem; color: #868686;"> USD</span></div>
-                    <div class="price-secondary">{avg_brl} BRL (média)</div>
+                    <div class="price-secondary">{avg_brl} BRL (average)</div>
                     <div class="range-bar">
                         <div class="range-fill" style="width: {min(range_pct, 100):.0f}%;"></div>
                     </div>
@@ -294,7 +346,7 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
                         <span>{range_low_usd}</span>
                         <span>{range_high_usd}</span>
                     </div>
-                    <div class="valuation-source">Fonte: {data['source']}</div>
+                    <div class="valuation-source">Source: {data['source']}</div>
                 </div>"""
     
     # Load the template
@@ -310,98 +362,151 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Porsche 993 Daily Digest | {formatted_date}</title>
-    <meta name="description" content="Daily Porsche 993 Carrera 4S intelligence brief by Hermes Carrera.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Daily Porsche 993 Carrera 4S intelligence brief by Hermes Carrera. Market data, auction listings, and Porsche heritage content.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {{
             --porsche-black: #000000;
             --porsche-white: #ffffff;
             --porsche-gray: #f5f5f7;
-            --porsche-light-gray: #f0f0f0;
+            --porsche-light-gray: #e5e5e5;
             --porsche-dark-gray: #1d1d1f;
             --porsche-medium-gray: #868686;
             --porsche-gold: #d4af37;
             --porsche-gold-hover: #e6c77d;
-            --font-display: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            --font-display: 'Playfair Display', serif;
+            --font-display2: 'Space Grotesk', sans-serif;
             --transition: all 0.3s cubic-bezier(0.25, 0.4, 0.25, 1);
         }}
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-        body {{ font-family: var(--font-display); background: var(--porsche-white); color: var(--porsche-dark-gray); line-height: 1.5; font-weight: 400; }}
-        h1 {{ font-size: 3.5rem; font-weight: 300; letter-spacing: -0.03em; line-height: 1.05; }}
-        h2 {{ font-size: 2rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; }}
-        h3 {{ font-size: 1.25rem; font-weight: 600; line-height: 1.3; }}
-        .hero-title {{ font-size: 4rem; font-weight: 700; letter-spacing: -0.04em; line-height: 0.9; }}
-        .byline {{ font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; margin-bottom: 1rem; opacity: 0.7; }}
-        header {{ background: var(--porsche-black); height: 100vh; display: flex; align-items: flex-end; justify-content: center; padding: 2rem; position: relative; overflow: hidden; }}
+        body {{ font-family: var(--font-sans); background: var(--porsche-white); color: var(--porsche-dark-gray); line-height: 1.5; font-weight: 400; }}
+        
+        /* Premium typography */
+        h1 {{ font-family: var(--font-display); font-size: 4rem; font-weight: 700; letter-spacing: -0.04em; line-height: 0.9; }}
+        h2 {{ font-family: var(--font-display2); font-size: 2rem; font-weight: 500; letter-spacing: -0.02em; line-height: 1.2; }}
+        h3 {{ font-family: var(--font-display2); font-size: 1.25rem; font-weight: 500; line-height: 1.3; }}
+        .byline {{ font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 1rem; opacity: 0.7; }}
+        
+        /* ===== Header/Hero ===== */
+        header {{
+            background: var(--porsche-black);
+            height: 100vh;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }}
         header::before {{
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://content-hub.imgix.net/GUhocLc6D6V9qFtm3Oc2g/19e093064c8a22f6214f16a85469aac2/7-20things-20years-20of-20the-20porsche-20911-20type-20993_0.jpg?w=2064');
+            background-image: url('{hero_image["image_url"]}');
             background-size: cover;
-            background-position: center;
+            background-position: center 30%;
             background-attachment: fixed;
             z-index: -1;
         }}
-        header::after {{ content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, transparent 100%); z-index: -1; }}
-        .hero-content {{ text-align: center; padding-bottom: 8rem; max-width: 800px; margin: 0 auto; }}
-        .hero-date {{ color: var(--porsche-white); font-size: 5rem; font-weight: 700; letter-spacing: -0.05em; line-height: 0.9; }}
-        .hero-date .small {{ font-size: 1.25rem; display: block; opacity: 0.7; }}
+        header::after {{ content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, transparent 100%); z-index: -1; }}
+        .hero-content {{ text-align: center; padding-bottom: 8rem; max-width: 900px; margin: 0 auto; z-index: 1; }}
+        .hero-date {{ color: var(--porsche-white); font-family: var(--font-display); font-size: 5rem; font-weight: 700; letter-spacing: -0.05em; line-height: 0.9; }}
+        .hero-date .small {{ font-size: 1.25rem; display: block; opacity: 0.7; margin-top: 0.5rem; font-family: var(--font-sans); font-weight: 400; }}
         .hero-badge {{ display: inline-block; background: var(--porsche-gold); color: var(--porsche-black); padding: 0.5rem 1.5rem; border-radius: 999px; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.05em; margin-top: 1.5rem; }}
-        main {{ max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }}
+        main {{ max-width: 1200px; margin: 0 auto; padding: 5rem 2rem; }}
         section {{ margin-bottom: 5rem; }}
-        .section-header {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }}
-        .section-title {{ font-size: 1.5rem; font-weight: 600; display: flex; align-items: center; gap: 0.75rem; }}
-        .section-title .emoji {{ font-size: 2rem; }}
-        .carousel-container {{ position: relative; margin: 2rem 0; }}
-        .carousel {{ display: flex; overflow-x: auto; gap: 1.5rem; padding: 1rem 0; scrollbar-width: none; }}
+        .section-header {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; }}
+        .section-title {{ font-family: var(--font-display2); font-size: 1.5rem; font-weight: 500; display: flex; align-items: center; gap: 0.75rem; color: var(--porsche-black); }}
+        .section-title .emoji {{ font-size: 1.5rem; }}
+        
+        /* Carousel */
+        .carousel-container {{ position: relative; margin: 2rem 0; padding: 1rem; background: var(--porsche-white); border-radius: 1rem; border: 1px solid var(--porsche-light-gray); box-shadow: 0 5px 20px rgba(0,0,0,0.03); }}
+        .carousel {{ display: flex; overflow-x: auto; gap: 1.5rem; padding: 0.5rem 0; scrollbar-width: none; }}
         .carousel::-webkit-scrollbar {{ display: none; }}
-        .carousel-card {{ min-width: 300px; background: var(--porsche-white); border-radius: 1rem; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: var(--transition); border: 1px solid var(--porsche-light-gray); }}
-        .carousel-card:hover {{ transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }}
+        .carousel-card {{ min-width: 320px; background: var(--porsche-white); border-radius: 0.75rem; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: var(--transition); border: 1px solid var(--porsche-light-gray); flex-shrink: 0; }}
+        .carousel-card:hover {{ transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }}
         .carousel-image {{ width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid var(--porsche-light-gray); }}
         .carousel-content {{ padding: 1.5rem; }}
         .carousel-meta {{ font-size: 0.875rem; color: var(--porsche-medium-gray); margin-bottom: 0.75rem; }}
-        .carousel-link {{ display: inline-flex; align-items: center; gap: 0.5rem; color: var(--porsche-gold); text-decoration: none; font-weight: 600; font-size: 0.875rem; }}
-        .carousel-link:hover {{ color: var(--porsche-gold-hover); }}
-        .market-table {{ width: 100%; border-collapse: collapse; background: var(--porsche-white); border-radius: 1rem; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid var(--porsche-light-gray); }}
+        .carousel-link {{ display: inline-flex; align-items: center; gap: 0.5rem; color: var(--porsche-black); text-decoration: none; font-weight: 700; font-size: 0.875rem; transition: color 0.2s ease; }}
+        .carousel-link:hover {{ color: var(--porsche-gold); }}
+        
+        /* Market Table */
+        .market-table {{ width: 100%; border-collapse: separate; border-spacing: 0; background: var(--porsche-white); border-radius: 1rem; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.03); border: 1px solid var(--porsche-light-gray); }}
         .market-table thead {{ background: var(--porsche-gold); }}
-        .market-table th {{ color: var(--porsche-black); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; padding: 1rem 1.5rem; text-align: left; }}
-        .market-table td {{ padding: 1rem 1.5rem; border-bottom: 1px solid var(--porsche-light-gray); }}
+        .market-table th {{ color: var(--porsche-black); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; padding: 1.25rem 1.5rem; text-align: left; font-family: var(--font-sans); }}
+        .market-table td {{ padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--porsche-light-gray); font-family: var(--font-sans); }}
         .market-table tr:last-child td {{ border-bottom: none; }}
         .price-usd {{ font-weight: 700; color: var(--porsche-black); }}
         .price-brl {{ font-size: 0.875rem; color: var(--porsche-medium-gray); }}
         .status-badge {{ display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }}
-        .status-active {{ background: rgba(212, 175, 55, 0.1); color: var(--porsche-gold); }}
-        .status-auction {{ background: rgba(0, 0, 0, 0.05); color: var(--porsche-dark-gray); }}
+        .platform-link {{ color: var(--porsche-medium-gray); text-decoration: none; font-weight: 600; transition: color 0.2s ease; }}
+        .platform-link:hover {{ color: var(--porsche-gold); text-decoration: underline; }}
+        
+        /* Valuation */
+        .valuation-charts {{ background: var(--porsche-white); border-radius: 1rem; padding: 2rem; border: 1px solid var(--porsche-light-gray); box-shadow: 0 5px 20px rgba(0,0,0,0.03); margin-bottom: 2rem; }}
+        .valuation-chart-container {{ position: relative; height: 300px; width: 100%; }}
         .valuation-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; }}
-        .valuation-card {{ background: var(--porsche-white); border-radius: 1rem; padding: 2rem; border: 1px solid var(--porsche-light-gray); box-shadow: 0 5px 20px rgba(0,0,0,0.03); }}
+        .valuation-card {{ background: var(--porsche-white); border-radius: 1rem; padding: 2rem; border: 1px solid var(--porsche-light-gray); box-shadow: 0 5px 20px rgba(0,0,0,0.03); transition: var(--transition); }}
+        .valuation-card:hover {{ transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }}
         .valuation-header {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }}
-        .price-display {{ font-size: 2rem; font-weight: 300; letter-spacing: -0.02em; margin-bottom: 1rem; }}
-        .price-secondary {{ font-size: 1rem; color: var(--porsche-medium-gray); }}
-        .range-bar {{ height: 4px; background: var(--porsche-light-gray); border-radius: 2px; margin: 1.5rem 0; }}
+        .valuation-title {{ font-family: var(--font-display2); font-size: 1.5rem; font-weight: 500; }}
+        .valuation-trend {{ font-size: 1.25rem; font-weight: 700; color: var(--porsche-gold); }}
+        .price-display {{ font-size: 2.5rem; font-weight: 300; letter-spacing: -0.02em; margin-bottom: 1rem; }}
+        .price-secondary {{ font-size: 1rem; color: var(--porsche-medium-gray); margin-bottom: 1.5rem; }}
+        .range-bar {{ height: 4px; background: var(--porsche-light-gray); border-radius: 2px; margin: 1.5rem 0; overflow: hidden; }}
         .range-fill {{ height: 100%; background: linear-gradient(90deg, var(--porsche-gold), #e6c77d); border-radius: 2px; }}
         .valuation-source {{ font-size: 0.75rem; color: var(--porsche-medium-gray); margin-top: 1rem; }}
-        .news-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }}
-        .news-card {{ background: var(--porsche-white); border-radius: 1rem; overflow: hidden; border: 1px solid var(--porsche-light-gray); transition: var(--transition); }}
-        .news-card:hover {{ transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }}
-        .news-image {{ width: 100%; height: 200px; object-fit: cover; }}
-        .news-content {{ padding: 1.5rem; }}
+        
+        /* Profile Cards */
+        .profiles-grid {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }}
+        .profile-card {{ background: var(--porsche-white); border-radius: 1rem; padding: 2.5rem; border: 1px solid var(--porsche-light-gray); box-shadow: 0 5px 20px rgba(0,0,0,0.03); transition: var(--transition); text-decoration: none; color: inherit; display: block; }}
+        .profile-card:hover {{ transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: var(--porsche-gold); }}
+        .profile-header-card {{ display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }}
+        .profile-icon-wrapper {{ width: 64px; height: 64px; background: var(--porsche-black); border-radius: 16px; display: flex; align-items: center; justify-content: center; }}
+        .profile-icon-wrapper svg {{ fill: none; stroke: var(--porsche-white); }}
+        .profile-tag {{ background: var(--porsche-light-gray); color: var(--porsche-medium-gray); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.25rem 0.75rem; border-radius: 999px; font-weight: 600; }}
+        .profile-title-card {{ font-family: var(--font-display2); font-size: 1.5rem; font-weight: 500; margin-bottom: 0.5rem; }}
+        .profile-description {{ color: var(--porsche-medium-gray); font-size: 0.9rem; line-height: 1.6; }}
+        
+        /* Tech Specs */
+        .specs-container {{ background: var(--porsche-white); border-radius: 1rem; border: 1px solid var(--porsche-light-gray); box-shadow: 0 5px 20px rgba(0,0,0,0.03); overflow: hidden; }}
+        .specs-grid {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--porsche-light-gray); }}
+        .spec-block {{ background: var(--porsche-white); padding: 1.5rem; }}
+        .spec-label {{ font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--porsche-medium-gray); font-weight: 600; }}
+        .spec-value {{ font-size: 1rem; color: var(--porsche-black); }}
+        
+        /* Footer */
+        footer {{ background: var(--porsche-black); color: var(--porsche-white); padding: 3rem 2rem; }}
+        .footer-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }}
+        .footer-column h4 {{ color: var(--porsche-gold); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }}
+        .footer-column ul {{ list-style: none; }}
+        .footer-column li {{ margin-bottom: 0.5rem; }}
+        .footer-column a {{ color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s ease; }}
+        .footer-column a:hover {{ color: var(--porsche-gold); }}
+        .footer-bottom p {{ margin-bottom: 0.5rem; }}
+        .footer-bottom p:last-child {{ font-size: 0.75rem; color: rgba(255, 255, 255, 0.5); }}
+        
         @media (max-width: 768px) {{
             .hero-date {{ font-size: 3rem; }}
-            .hero-title {{ font-size: 2.5rem; }}
-            .news-grid, .valuation-grid {{ grid-template-columns: 1fr; }}
+            .profiles-grid, .valuation-grid {{ grid-template-columns: 1fr; }}
+            .specs-grid {{ grid-template-columns: 1fr; }}
         }}
     </style>
 </head>
 <body>
-    <div class="hero-content">
-        <p class="byline">Porsche 993 • Daily Digest</p>
-        <div class="hero-date">
-            {day_num}
-            <span class="small">{month_year}</span>
+    <header>
+        <div class="hero-content">
+            <p class="byline">Porsche 993 • Daily Digest</p>
+            <div class="hero-date">
+                {day_num}
+                <span class="small">{month_year}</span>
+            </div>
+            <div class="hero-badge">M64/21 Varioram • 993 Carrera 4S</div>
         </div>
-        <div class="hero-badge">M64/21 Varioram • 993 Carrera 4S</div>
-    </div>
+    </header>
     
     <main>
         <!-- News Carousel -->
@@ -416,14 +521,14 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
         
         <!-- Market Analysis -->
         <section>
-            <h2 class="section-title"><span>📈</span> Mercado & Leilões</h2>
+            <h2 class="section-title"><span>📈</span> Market & Auctions</h2>
             <table class="market-table">
                 <thead>
                     <tr>
-                        <th>Plataforma</th>
-                        <th>Veículo</th>
-                        <th>Preço (USD)</th>
-                        <th>Preço (BRL)</th>
+                        <th>Platform</th>
+                        <th>Vehicle</th>
+                        <th>Price (USD)</th>
+                        <th>Price (BRL)</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -431,45 +536,266 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
                     {auction_rows}
                 </tbody>
             </table>
-            <div style="display: flex; justify-content: space-between; margin-top: 1rem; font-size: 0.875rem; color: #868686;">
-                <span>💱 Câmbio: 1 USD = {rate:.2f} BRL</span>
-                <span>🔄 Atualizado: {formatted_date}</span>
+            <div style="display: flex; justify-content: space-between; margin-top: 1.5rem; font-size: 0.875rem; color: #868686;">
+                <span>💱 Exchange rate: 1 USD = {rate:.2f} BRL</span>
+                <span>🔄 Updated: {formatted_date}</span>
             </div>
         </section>
         
-        <!-- Valuation Analysis -->
+        <!-- Valuation Analysis with Chart.js -->
         <section>
-            <h2 class="section-title"><span>💰</span> Análise de Valorização</h2>
+            <h2 class="section-title"><span>💰</span> Valuation Analysis</h2>
+            
+            <div class="valuation-charts">
+                <div class="valuation-chart-container">
+                    <canvas id="valuationChart"></canvas>
+                </div>
+            </div>
+            
             <div class="valuation-grid">
                 {valuation_cards}
             </div>
         </section>
+        
+        <!-- Reference Profiles -->
+        <section>
+            <h2 class="section-title"><span>🔗</span> Porsche Reference Profiles</h2>
+            <div class="profiles-grid">
+                <a href="/previews/porsche_drivers.html" class="profile-card">
+                    <div class="profile-header-card">
+                        <div class="profile-icon-wrapper">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7v10c0 5 8 15 10 15s10-10 10-15L12 2z" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <span class="profile-tag">Community</span>
+                    </div>
+                    <h3 class="profile-title-card">Porsche Drivers</h3>
+                    <p class="profile-description">Community resources for road-focused Porsche enthusiasts — eclectic, travel, meetups and lifestyle.</p>
+                </a>
+                
+                <a href="/previews/porsche_perfection_collectors.html" class="profile-card">
+                    <div class="profile-header-card">
+                        <div class="profile-icon-wrapper">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7v10c0 5 8 15 10 15s10-10 10-15L12 2z" stroke-width="2"/>
+                                <path d="M12 8v8" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M8 12h8" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <span class="profile-tag">Collectors</span>
+                    </div>
+                    <h3 class="profile-title-card">Porsche Perfection Collectors</h3>
+                    <p class="profile-description">Focus: originality, low mileage, exclusivity and valuation for discerning 911 enthusiasts.</p>
+                </a>
+                
+                <a href="/previews/porsche_custom_community.html" class="profile-card">
+                    <div class="profile-header-card">
+                        <div class="profile-icon-wrapper">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 16c1.65 0 3-.83 3-1.83V6c0-1.1-.9-2-2-2h-2c-1.1 0-2 .9-2 2v8.17c0 1-.85 1.83-3 1.83" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 16v6" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="8" cy="14" r="2" stroke-width="2"/>
+                            <circle cx="16" cy="14" r="2" stroke-width="2"/>
+                        </svg>
+                        </div>
+                        <span class="profile-tag">Custom</span>
+                    </div>
+                    <h3 class="profile-title-card">Porsche Custom Community</h3>
+                    <p class="profile-description">Open to modifications, performance upgrades, tuning and custom builds.</p>
+                </a>
+            </div>
+        </section>
+        
+        <!-- Technical Specs -->
+        <section>
+            <h2 class="section-title"><span>🔧</span> Technical Specifications</h2>
+            <span style="color: #868686; font-size: 0.9rem;">M64/21 Varioram • 993 Carrera 4S</span>
+            
+            <div class="specs-container">
+                <div class="specs-grid">
+                    <div class="spec-block">
+                        <span class="spec-label">Engine</span>
+                        <span class="spec-value">Flat-6 M64/21 Varioram<br>3.6L, 282 hp (210 kW)</span>
+                    </div>
+                    <div class="spec-block">
+                        <span class="spec-label">Transmission</span>
+                        <span class="spec-value">6-speed manual<br>Viscous all-wheel drive</span>
+                    </div>
+                    <div class="spec-block">
+                        <span class="spec-label">Year</span>
+                        <span class="spec-value">1996</span>
+                    </div>
+                    <div class="spec-block">
+                        <span class="spec-label">VIN</span>
+                        <span class="spec-value">WP0AA2999TS320294</span>
+                    </div>
+                    <div class="spec-block">
+                        <span class="spec-label">Color</span>
+                        <span class="spec-value">Arctic Silver Metallic (570)</span>
+                    </div>
+                    <div class="spec-block">
+                        <span class="spec-label">Chassis</span>
+                        <span class="spec-value">Wide-body (Turbo-look)<br>Suspension M030<br>Brembo 4-piston brakes</span>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
     
-    <footer style="background: var(--porsche-black); color: var(--porsche-white); padding: 3rem 2rem; text-align: center;">
-        <p>© 2026 costafamily.ai | Porsche 993 Carrera 4S Archive System</p>
-        <p style="margin-top: 0.5rem; font-size: 0.75rem; color: rgba(255,255,255,0.5);">
-            WP0AA2999TS320294 | M64/21 Varioram | G64/20 6MT | Arctic Silver Metallic
-        </p>
+    <!-- Daily Air-Cooled Feature -->
+    <section style="margin-top: 4rem;">
+        <div class="section-header">
+            <h2 class="section-title"><span>📸</span> Daily Air-Cooled Feature</h2>
+            <span style="color: var(--porsche-medium-gray); font-size: 0.9rem;">Today's Porsche</span>
+        </div>
+        
+        <div style="display: flex; gap: 2rem; background: var(--porsche-white); border-radius: 1rem; overflow: hidden; border: 1px solid var(--porsche-light-gray); box-shadow: 0 5px 20px rgba(0,0,0,0.03);">
+            <div style="flex: 1; min-width: 300px;">
+                <img src="{hero_image['image_url']}" alt="{hero_image['title']}" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div style="flex: 1; padding: 2.5rem; display: flex; flex-direction: column;">
+                <h3 style="font-family: var(--font-display2); font-size: 1.5rem; margin-bottom: 0.5rem;">{hero_image['title']}</h3>
+                <p style="color: var(--porsche-medium-gray); line-height: 1.6; margin-bottom: 1.5rem;">
+                    {hero_image['description']}
+                </p>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: auto;">
+                    <span style="background: var(--porsche-light-gray); color: var(--porsche-dark-gray); padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.875rem; font-weight: 600;">{hero_image['model']}</span>
+                    <span style="background: var(--porsche-light-gray); color: var(--porsche-dark-gray); padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">{hero_image['source']}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer with Categories -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h4>Market Resources</h4>
+                <ul>
+                    <li><a href="https://bringatrailer.com/" target="_blank">Bring a Trailer</a></li>
+                    <li><a href="https://carsandbids.com/" target="_blank">Cars & Bids</a></li>
+                    <li><a href="https://www.classic.com/" target="_blank">Classic.com</a></li>
+                    <li><a href="/archive/2026-08-11.html">Digest Archive</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Technical Resources</h4>
+                <ul>
+                    <li><a href="https://info.fcpeuro.com/993" target="_blank">FCP Euro 993</a></li>
+                    <li><a href="https://www.suncoastparts.com/993landing.html" target="_blank">Suncoast Parts</a></li>
+                    <li><a href="https://911uk.com/" target="_blank">911UK Forum</a></li>
+                    <li><a href="https://www.pelicanparts.com/" target="_blank">Pelican Parts</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Reference Profiles</h4>
+                <ul>
+                    <li><a href="/previews/porsche_drivers.html" target="_blank">Porsche Drivers Profile</a></li>
+                    <li><a href="/previews/porsche_perfection_collectors.html" target="_blank">Porsche Perfection Collectors</a></li>
+                    <li><a href="/previews/porsche_custom_community.html" target="_blank">Porsche Custom Community</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Porsche Official</h4>
+                <ul>
+                    <li><a href="https://www.porsche.com/stories/" target="_blank">Porsche Stories</a></li>
+                    <li><a href="https://newsroom.porsche.com/" target="_blank">Porsche Newsroom</a></li>
+                    <li><a href="https://www.porsche.com/porsche-classic/" target="_blank">Porsche Classic</a></li>
+                    <li><a href="https://www.porsche.com/usa/911/" target="_blank">911 Model Page</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2026 costafamily.ai | Porsche 993 Carrera 4S Archive System</p>
+            <p>WP0AA2999TS320294 | M64/21 Varioram | G64/20 6MT | Arctic Silver Metallic (570)</p>
+            <p>Generated by Hermes Carrera • Sources: Porsche Stories, Bring a Trailer, Cars & Bids, Xe.com, Classic.com</p>
+        </div>
     </footer>
+    
+    <script>
+        const valuationData = {{
+            labels: ['Aug 2023', 'Feb 2024', 'Aug 2024', 'Feb 2025', 'Aug 2025', 'Feb 2026', 'Aug 2026'],
+            datasets: [
+                {{
+                    label: 'Carrera 4S ($K)',
+                    data: [115, 122, 130, 138, 145, 150, 155],
+                    borderColor: '#d4af37',
+                    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#d4af37',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 7,
+                    borderWidth: 2
+                }},
+                {{
+                    label: 'Carrera ($K)',
+                    data: [105, 110, 115, 120, 125, 130, 135],
+                    borderColor: '#000000',
+                    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#000000',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 7,
+                    borderWidth: 2
+                }},
+                {{
+                    label: 'Turbo ($K)',
+                    data: [180, 195, 205, 215, 220, 225, 225],
+                    borderColor: '#1d1d1f',
+                    backgroundColor: 'rgba(29, 29, 31, 0.05)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#1d1d1f',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 7,
+                    borderWidth: 2
+                }}
+            ]
+        }};
+        
+        Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
+        Chart.defaults.font.size = 12;
+        
+        const ctx = document.getElementById('valuationChart').getContext('2d');
+        const valuationChart = new Chart(ctx, {{
+            type: 'line',
+            data: valuationData,
+            options: {{
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {{
+                    legend: {{
+                        position: 'top',
+                        labels: {{
+                            padding: 20,
+                            usePointStyle: true,
+                        }}
+                    }}
+                }},
+                scales: {{
+                    y: {{
+                        border: {{ display: false }},
+                        grid: {{ color: 'rgba(0,0,0,0.05)', drawBorder: false }}
+                    }},
+                    x: {{
+                        grid: {{ display: false, drawBorder: false }}
+                    }}
+                }}
+            }}
+        }});
+    </script>
 </body>
 </html>'''
-    
-    # Replace placeholders
-    replacements = {
-        'formatted_date': formatted_date,
-        'day_num': day_num,
-        'month_year': month_year,
-        'day_name': day_name,
-        'news_cards': news_cards,
-        'auction_rows': auction_rows,
-        'valuation_cards': valuation_cards,
-        'rate': f"{rate:.2f}",
-    }
-    
-    for key, value in replacements.items():
-        html = html.replace('{' + key + '}', value)
-    
     return html
 
 def archive_current_digest():
