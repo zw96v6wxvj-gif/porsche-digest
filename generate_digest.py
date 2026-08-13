@@ -304,6 +304,11 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
     news_cards = ""
     for article in articles:
         image_url = article.get('image', '')
+        # Force image width to 600px for optimized carousel
+        if '?' in image_url:
+            image_url = image_url.split('?')[0] + '?w=600'
+        else:
+            image_url = image_url + '?w=600'
         if not image_url:
             image_url = "https://content-hub.imgix.net/GUhocLc6D6V9qFtm3Oc2g/19e093064c8a22f6214f16a85469aac2/7-20things-20you-20need-20to-20know-20about-20the-20porsche-20911-20type-20993_0.jpg?w=600"
         
