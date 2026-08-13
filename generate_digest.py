@@ -415,6 +415,11 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
         .hero-date {{ color: var(--porsche-white); font-family: var(--font-display); font-size: 5rem; font-weight: 700; letter-spacing: -0.05em; line-height: 0.9; }}
         .hero-date .small {{ font-size: 1.25rem; display: block; opacity: 0.7; margin-top: 0.5rem; font-family: var(--font-sans); font-weight: 400; }}
         .hero-badge {{ display: inline-block; background: var(--porsche-gold); color: var(--porsche-black); padding: 0.5rem 1.5rem; border-radius: 999px; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.05em; margin-top: 1.5rem; }}
+        .daily-hero-image-container {{ margin-top: 2rem; border-radius: 0.75rem; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); }}
+        .daily-hero-image {{ width: 100%; height: auto; display: block; }}
+        .hero-caption {{ background: rgba(0,0,0,0.7); padding: 1rem 1.5rem; }}
+        .hero-caption-title {{ color: var(--porsche-white); font-size: 0.875rem; font-weight: 600; margin-bottom: 0.25rem; }}
+        .hero-caption-source {{ color: var(--porsche-gold); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }}
         main {{ max-width: 1200px; margin: 0 auto; padding: 5rem 2rem; }}
         section {{ margin-bottom: 5rem; }}
         .section-header {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; }}
@@ -491,8 +496,28 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
         
         @media (max-width: 768px) {{
             .hero-date {{ font-size: 3rem; }}
+            .hero-content {{ max-width: 90vw; }}
+            .daily-hero-image-container {{ margin-top: 1.5rem; }}
             .profiles-grid, .valuation-grid {{ grid-template-columns: 1fr; }}
             .specs-grid {{ grid-template-columns: 1fr; }}
+            .spec-block {{ padding: 1rem; }}
+            .carousel-card {{ min-width: 280px; }}
+            .section-header {{ flex-direction: column; align-items: flex-start; gap: 0.5rem; }}
+        }}
+        
+        /* iPhone Pro Max specific optimizations */
+        @media (max-width: 430px) {{
+            .hero-date {{ font-size: 2.5rem; }}
+            .hero-content {{ padding-bottom: 4rem; }}
+            .byline {{ font-size: 0.75rem; }}
+            h2 {{ font-size: 1.5rem; }}
+            .section-title {{ font-size: 1.25rem; }}
+            .market-table th, .market-table td {{ padding: 0.75rem; font-size: 0.875rem; }}
+            .hero-caption-title {{ font-size: 0.8rem; }}
+            .hero-caption-source {{ font-size: 0.65rem; }}
+            .profile-card {{ padding: 1.5rem; }}
+            .spec-block {{ padding: 0.75rem; }}
+            .spec-value {{ font-size: 0.9rem; }}
         }}
     </style>
 </head>
@@ -505,6 +530,15 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
                 <span class="small">{month_year}</span>
             </div>
             <div class="hero-badge">M64/21 Varioram • 993 Carrera 4S</div>
+            
+            <!-- Daily Air-Cooled Hero Image -->
+            <div class="daily-hero-image-container">
+                <img src="{hero_image['image_url']}" alt="{hero_image['title']}" class="daily-hero-image">
+                <div class="hero-caption">
+                    <div class="hero-caption-title">{hero_image['title']}</div>
+                    <div class="hero-caption-source">{hero_image['model']} • {hero_image['source']}</div>
+                </div>
+            </div>
         </div>
     </header>
     
@@ -689,30 +723,6 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
             </div>
         </section>
     </main>
-    
-    <!-- Daily Air-Cooled Feature -->
-    <section style="margin-top: 4rem;">
-        <div class="section-header">
-            <h2 class="section-title"><span>📸</span> Daily Air-Cooled Feature</h2>
-            <span style="color: var(--porsche-medium-gray); font-size: 0.9rem;">Today's Porsche</span>
-        </div>
-        
-        <div style="display: flex; gap: 2rem; background: var(--porsche-white); border-radius: 1rem; overflow: hidden; border: 1px solid var(--porsche-light-gray); box-shadow: 0 5px 20px rgba(0,0,0,0.03);">
-            <div style="flex: 1; min-width: 300px;">
-                <img src="{hero_image['image_url']}" alt="{hero_image['title']}" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div style="flex: 1; padding: 2.5rem; display: flex; flex-direction: column;">
-                <h3 style="font-family: var(--font-display2); font-size: 1.5rem; margin-bottom: 0.5rem;">{hero_image['title']}</h3>
-                <p style="color: var(--porsche-medium-gray); line-height: 1.6; margin-bottom: 1.5rem;">
-                    {hero_image['description']}
-                </p>
-                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: auto;">
-                    <span style="background: var(--porsche-light-gray); color: var(--porsche-dark-gray); padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.875rem; font-weight: 600;">{hero_image['model']}</span>
-                    <span style="background: var(--porsche-light-gray); color: var(--porsche-dark-gray); padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">{hero_image['source']}</span>
-                </div>
-            </div>
-        </div>
-    </section>
     
     <!-- Footer with Categories -->
     <footer>
