@@ -555,11 +555,58 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
             <div class="valuation-grid">
                 {valuation_cards}
             </div>
-        </section>
+            </section>
         
-        <!-- Reference Profiles -->
-        <section>
-            <h2 class="section-title"><span>🔗</span> Porsche Reference Profiles</h2>
+            <!-- 993 Parts & Accessories -->
+            <section>
+                <h2 class="section-title"><span>🔧</span> 993 Parts & Accessories</h2>
+                <span style="color: #868686; font-size: 0.9rem;">Official parts suppliers and resources for your 1996 Carrera 4S (VIN: WP0AA2999TS320294)</span>
+            
+                <div class="profiles-grid">
+                    <a href="https://www.suncoastparts.com/993landing.html" target="_blank" class="profile-card">
+                        <div class="profile-header-card">
+                            <div class="profile-icon-wrapper">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2L2 7v10c0 5 8 15 10 15s10-10 10-15L12 2z" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <span class="profile-tag">OEM Parts</span>
+                        </div>
+                        <h3 class="profile-title-card">Suncoast Porsche Parts</h3>
+                        <p class="profile-description">Official Porsche parts supplier with comprehensive 993 catalog. Select your exact model for perfect-fit OEM parts.</p>
+                    </a>
+                
+                    <a href="https://www.parts-wise.com/993-porsche-parts/" target="_blank" class="profile-card">
+                        <div class="profile-header-card">
+                            <div class="profile-icon-wrapper">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2L2 7v10c0 5 8 15 10 15s10-10 10-15L12 2z" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <span class="profile-tag">OEM/Aftermarket</span>
+                        </div>
+                        <h3 class="profile-title-card">Partswise</h3>
+                        <p class="profile-description">High-quality OEM and aftermarket Porsche 993 parts. Engine code M64/21 compatibility guaranteed.</p>
+                    </a>
+                
+                    <a href="https://info.fcpeuro.com/993" target="_blank" class="profile-card">
+                        <div class="profile-header-card">
+                            <div class="profile-icon-wrapper">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2L2 7v10c0 5 8 15 10 15s10-10 10-15L12 2z" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <span class="profile-tag">Performance</span>
+                        </div>
+                        <h3 class="profile-title-card">FCP Euro</h3>
+                        <p class="profile-description">Genuine, OE, OEM, aftermarket and performance parts for Porsche 993. Large catalog with fitment guides.</p>
+                    </a>
+                </div>
+            </section>
+        
+            <!-- Reference Profiles -->
+            <section>
+                <h2 class="section-title"><span>🔗</span> Porsche Reference Profiles</h2>
             <div class="profiles-grid">
                 <a href="/previews/porsche_drivers.html" class="profile-card">
                     <div class="profile-header-card">
