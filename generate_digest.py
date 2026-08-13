@@ -305,7 +305,7 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
     for article in articles:
         image_url = article.get('image', '')
         if not image_url:
-            image_url = "https://content-hub.imgix.net/GUhocLc6D6V9qFtm3Oc2g/19e093064c8a22f6214f16a85469aac2/7-20things-20years-20of-20the-20porsche-20911-20type-20993_0.jpg?w=800"
+            image_url = "https://content-hub.imgix.net/GUhocLc6D6V9qFtm3Oc2g/19e093064c8a22f6214f16a85469aac2/7-20things-20you-20need-20to-20know-20about-20the-20porsche-20911-20type-20993_0.jpg?w=600"
         
         news_cards += f"""
                     <div class="carousel-card">
@@ -449,10 +449,10 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
         
         .carousel {{ display: flex; overflow-x: auto; gap: 1.5rem; padding: 0.5rem 0; scrollbar-width: none; scroll-snap-type: x mandatory; }}
         .carousel::-webkit-scrollbar {{ display: none; }}
-        .carousel-card {{ min-width: 320px; background: var(--porsche-white); border-radius: 0.75rem; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: var(--transition); border: 1px solid var(--porsche-light-gray); flex-shrink: 0; scroll-snap-align: start; }}
+        .carousel-card {{ min-width: 200px; background: var(--porsche-white); border-radius: 0.75rem; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: var(--transition); border: 1px solid var(--porsche-light-gray); flex-shrink: 0; scroll-snap-align: start; }}
         .carousel-card:hover {{ transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }}
-        .carousel-image {{ width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid var(--porsche-light-gray); }}
-        .carousel-content {{ padding: 1.5rem; }}
+        .carousel-image {{ width: 100%; height: 120px; object-fit: cover; border-bottom: 1px solid var(--porsche-light-gray); }}
+        .carousel-content {{ padding: 1rem; }}
         .carousel-meta {{ font-size: 0.875rem; color: var(--porsche-medium-gray); margin-bottom: 0.75rem; }}
         .carousel-link {{ display: inline-flex; align-items: center; gap: 0.5rem; color: var(--porsche-black); text-decoration: none; font-weight: 700; font-size: 0.875rem; transition: color 0.2s ease; }}
         .carousel-link:hover {{ color: var(--porsche-gold); }}
@@ -559,13 +559,13 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
             .hero-badge {{ font-size: 0.7rem; padding: 0.3rem 0.8rem; }}
             
             /* Carousel mobile UX */
-            .carousel-card {{ min-width: 260px; margin-right: 0; }}
-            .carousel {{ gap: 1rem; }}
-            .carousel-content {{ padding: 1rem; }}
-            .carousel-meta {{ font-size: 0.75rem; }}
-            .carousel-link {{ font-size: 0.75rem; }}
+            .carousel-card {{ min-width: 140px; margin-right: 0; }}
+            .carousel {{ gap: 0.75rem; }}
+            .carousel-content {{ padding: 0.75rem; }}
+            .carousel-meta {{ font-size: 0.7rem; }}
+            .carousel-link {{ font-size: 0.7rem; }}
             .carousel-nav {{ display: none; }}
-            .carousel-scrollbar-container {{ margin-top: 0.75rem; }}
+            .carousel-scrollbar-container {{ margin-top: 0.5rem; }}
             
             /* Lists mobile-friendly */
             .market-table {{ font-size: 0.8rem; }}
