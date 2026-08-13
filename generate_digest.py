@@ -628,9 +628,9 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
         
         .carousel {{ display: flex; overflow-x: auto; gap: 1.5rem; padding: 0.5rem 0; scrollbar-width: none; scroll-snap-type: x mandatory; }}
         .carousel::-webkit-scrollbar {{ display: none; }}
-        .carousel-card {{ min-width: 220px; background: var(--porsche-white); border-radius: 0.75rem; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: var(--transition); border: 1px solid var(--porsche-light-gray); flex-shrink: 0; scroll-snap-align: start; }}
+        .carousel-card {{ min-width: 120px; background: var(--porsche-white); border-radius: 0.75rem; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: var(--transition); border: 1px solid var(--porsche-light-gray); flex-shrink: 0; scroll-snap-align: start; }}
         .carousel-card:hover {{ transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }}
-        .carousel-image {{ width: 100%; height: 120px; object-fit: cover; border-bottom: 1px solid var(--porsche-light-gray); }}
+        .carousel-image {{ width: 100%; height: 100px; object-fit: cover; border-bottom: 1px solid var(--porsche-light-gray); }}
         .carousel-content {{ padding: 1rem; }}
         .carousel-meta {{ font-size: 0.875rem; color: var(--porsche-medium-gray); margin-bottom: 0.75rem; }}
         .carousel-link {{ display: inline-flex; align-items: center; gap: 0.5rem; color: var(--porsche-black); text-decoration: none; font-weight: 700; font-size: 0.875rem; transition: color 0.2s ease; }}
