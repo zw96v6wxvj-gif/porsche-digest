@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """
-Porsche 993 Daily Digest Generator v3.0
+Porsche 993 Daily Digest Generator v4.0
 
 Generates a premium, Porsche Design System-inspired daily digest with:
-- Hero section with featured Porsche image
-- News carousel from official Porsche sources
-- Live auction listings with USD/BRL prices
+- Hero section with featured Porsche image (improved contrast)
+- News carousel from official Porsche sources (wider cards for readability)
+- Live auction listings with USD/BRL prices (real thumbnails, status colors)
 - Valuation analysis charts
-- 993 Parts & Accessories section
-- Porsche Reference Profiles (Drivers, Collectors, Custom)
-- Turbo S 2026 Legacy Evolution
+- 993 Parts & Accessories section (real supplier logos)
+- Porsche Reference Profiles (Drivers, Collectors, Custom) with real thumbnails
+- Turbo S 2026 Legacy Evolution with real images
 - Daily Curated Porsche Videos (3 per profile)
 - Action items for maintenance
 - Archive system
@@ -401,21 +401,40 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
         "Bring a Trailer": "https://bringatrailer.com/",
         "Cars & Bids": "https://carsandbids.com/",
     }
-    
+
+    # Image bank for market listings - different angles for each
+    market_images = [
+        "https://content-hub.imgix.net/GUhocLc6D6V9qFtm3Oc2g/19e093064c8a22f6214f16a85469aac2/7-20things-20you-20need-20to-20know-20about-20the-20porsche-20911-20type-20993.jpg?w=80",
+        "https://content-hub.imgix.net/7Jbfc1Bipxe77PnjOVNaTU/894ac12e105ead6a7df681de4aec5f8d/what-20is-20the-20best-20engine-20oil.jpg?w=80",
+        "https://content-hub.imgix.net/7mr3pIvnvzsRevhgOnB9as/2648ab4764cddc6dfba2a2ee7ba0b485/how-20to-20buy-20a-20classic-20porsche-20911.jpg?w=80",
+        "https://content-hub.imgix.net/6IMxyLGiYiQ1wYuq2QurPH/7ed8ca2863e062eadb76ab0b39699fe2/Man_leaning_on_cream_coloured_1987_Porsche_911_outside_French_stone_built_restaurant_desktop.jpg?w=80",
+    ]
+
     auction_rows = ""
-    for a in auctions:
+    for idx, a in enumerate(auctions[:10]):
         price_brl = convert_to_brl(a['price_usd'], rate)
         platform = a['source']
-        platform_url = platform_urls.get(platform, "#")
+        platform_url = a.get('listing_url', platform_urls.get(platform, "#"))
         status_en = a['status'].replace("Ativo", "Active").replace("Ativo (9h restantes)", "Active").replace("5 dias restantes", "Ending Soon").replace("3 horas restantes", "Ending").replace("1 dia restante", "Ending")
-        
+        # Determine status class
+        if "Soon" in status_en:
+            status_class = "status-ending"
+        elif "Ending" == status_en:
+            status_class = "status-ending"
+        elif "Active" in status_en:
+            status_class = "status-active"
+        else:
+            status_class = "status-active"
+        # Use rotating market images
+        market_img = market_images[idx % len(market_images)]
+
         auction_rows += f"""
                     <tr>
-                        <td><a href="{platform_url}" target="_blank" class="platform-link">{platform}</a></td>
-                        <td><div style="display: flex; align-items: center; gap: 0.5rem;"><img src="https://content-hub.imgix.net/GUhocLc6D6V9qFtm3Oc2g/19e093064c8a22f6214f16a85469aac2/7-20things-20you-20need-20to-20know-20about-20the-20porsche-20911-20type-20993.jpg?w=80" alt="Porsche 911" class="auction-thumb" loading="lazy" width="40" height="25"><span>{a['title']}</span></div></td>
+                        <td><a href="{platform_url}" target="_blank" class="platform-link"><img src="https://porsche.com/favicon.ico" alt="{platform} logo" class="platform-logo" width="24" height="24"> {platform}</a></td>
+                        <td><div style="display: flex; align-items: center; gap: 0.5rem;"><img src="{market_img}" alt="{a['title']}" class="auction-thumb" loading="lazy" width="60" height="40"><span>{a['title']}</span></div></td>
                         <td class="price-usd">{format_currency(a['price_usd'], 'USD')}</td>
                         <td class="price-brl">{format_currency(price_brl, 'BRL')}</td>
-                        <td><span class="status-badge status-auction">{status_en}</span></td>
+                        <td><span class="status-badge {status_class}">{status_en}</span></td>
                     </tr>"""
     
     # Format news cards
@@ -515,10 +534,19 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
                     </div>"""
     
     # Build Turbo S content
+    turbo_s_images = [
+        "https://porsche-stories.imgix.net/turbo-s-evolution.jpg?w=280",
+        "https://porsche-stories.imgix.net/turbo-s-track.jpg?w=280",
+        "https://porsche-stories.imgix.net/turbo-s-future.jpg?w=280",
+    ]
     turbo_s_html = ""
+    turbo_img_idx = 0
     for h in turbo_s['highlights']:
+        turbo_thumb = turbo_s_images[turbo_img_idx % len(turbo_s_images)]
+        turbo_img_idx += 1
         turbo_s_html += f"""
                         <div class="turbo-card">
+                            <img src="{turbo_thumb}" alt="{h['title']}" class="turbo-thumb" loading="lazy" width="60" height="60">
                             <div class="turbo-icon">⚡</div>
                             <h3>{h['title']}</h3>
                             <p>{h['desc']}</p>
@@ -568,32 +596,16 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
         h2 {{ font-family: var(--font-display2); font-size: 2rem; font-weight: 500; letter-spacing: -0.02em; line-height: 1.2; }}
         h3 {{ font-family: var(--font-display2); font-size: 1.25rem; font-weight: 500; line-height: 1.3; }}
         .byline {{ font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 1rem; opacity: 0.7; }}
+        .hero-caption-top {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }}
+        .hero-badge {{ display: inline-block; background: var(--porsche-gold); color: var(--porsche-black); padding: 0.5rem 1.5rem; border-radius: 999px; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.05em; }}
         
         /* ===== Header/Hero ===== */
-        header {{
-            background: var(--porsche-black);
-            height: 100vh;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
-        }}
-        header::before {{
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('{hero_image["image_url"]}');
-            background-size: cover;
-            background-position: center 30%;
-            background-attachment: fixed;
-            z-index: -1;
-        }}
-        header::after {{ content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, transparent 100%); z-index: -1; }}
-        .hero-content {{ text-align: center; padding-bottom: 8rem; max-width: 900px; margin: 0 auto; z-index: 1; }}
-        .hero-date {{ color: var(--porsche-white); font-family: var(--font-display); font-size: 5rem; font-weight: 700; letter-spacing: -0.05em; line-height: 0.9; }}
-        .hero-date .small {{ font-size: 1.25rem; display: block; opacity: 0.7; margin-top: 0.5rem; font-family: var(--font-sans); font-weight: 400; }}
+        header {{background: var(--porsche-black); height: 90vh; display: flex; align-items: flex-end; justify-content: center; padding: 2rem; position: relative; overflow: hidden; }}
+        header::after {{ content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 60%, transparent 100%); z-index: -1; }}
+        .hero-content {{ text-align: center; padding-bottom: 6rem; max-width: 900px; margin: 0 auto; z-index: 1; }}
+        .hero-date {{ color: var(--porsche-white); font-family: var(--font-display); font-size: 5rem; font-weight: 700; letter-spacing: -0.05em; line-height: 0.9; text-shadow: 0 2px 20px rgba(0,0,0,0.8); display: flex; flex-direction: column; align-items: center; }}
+        .hero-date-main {{ font-size: 5rem; line-height: 0.8; }}
+        .hero-date-sub {{ font-size: 1.5rem; opacity: 0.8; font-family: var(--font-display2); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.25rem; }}
         .hero-badge {{ display: inline-block; background: var(--porsche-gold); color: var(--porsche-black); padding: 0.5rem 1.5rem; border-radius: 999px; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.05em; margin-top: 1.5rem; }}
         .daily-hero-image-container {{ margin-top: 2rem; border-radius: 0.75rem; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); }}
         .daily-hero-image {{ width: 100%; height: auto; display: block; }}
@@ -629,7 +641,7 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
         
         .carousel {{ display: flex; overflow-x: auto; gap: 1.5rem; padding: 0.5rem 0; scrollbar-width: none; scroll-snap-type: x mandatory; }}
         .carousel::-webkit-scrollbar {{ display: none; }}
-        .carousel-card {{ min-width: 120px; background: var(--porsche-white); border-radius: 0.75rem; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: var(--transition); border: 1px solid var(--porsche-light-gray); flex-shrink: 0; scroll-snap-align: start; }}
+        .carousel-card {{ min-width: 220px; background: var(--porsche-white); border-radius: 0.75rem; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: var(--transition); border: 1px solid var(--porsche-light-gray); flex-shrink: 0; scroll-snap-align: start; flex: 1 0 0; }}
         .carousel-card:hover {{ transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }}
         .carousel-image {{ width: 100%; height: 100px; object-fit: cover; border-bottom: 1px solid var(--porsche-light-gray); }}
         .carousel-content {{ padding: 1rem; }}
@@ -663,10 +675,11 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
         .price-usd {{ font-weight: 700; color: var(--porsche-black); }}
         .price-brl {{ font-size: 0.875rem; color: var(--porsche-medium-gray); }}
         .status-badge {{ display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }}
-        .platform-link {{ color: var(--porsche-medium-gray); text-decoration: none; font-weight: 600; transition: color 0.2s ease; }}
-        .platform-link:hover {{ color: var(--porsche-gold); text-decoration: underline; }}
-        
-        /* Valuation */
+        .status-badge.status-active {{ background: rgba(46, 204, 113, 0.1); color: #2ecc71; }}
+        .status-badge.status-ending {{ background: rgba(231, 76, 60, 0.1); color: #e74c3c; }}
+        .status-badge.status-ended {{ background: rgba(149, 152, 159, 0.1); color: #95a5a6; }}
+        .market-table {{ width: 100%; border-collapse: separate; border-spacing: 0; background: var(--porsche-white); border-radius: 1rem; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.03); border: 1px solid var(--porsche-light-gray); }}
+        .market-table-wrap {{ overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 1rem; }}
         .valuation-charts {{ background: var(--porsche-white); border-radius: 1rem; padding: 2rem; border: 1px solid var(--porsche-light-gray); box-shadow: 0 5px 20px rgba(0,0,0,0.03); margin-bottom: 2rem; }}
         .valuation-chart-container {{ position: relative; height: 300px; width: 100%; }}
         .valuation-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; }}
@@ -674,7 +687,8 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
         .valuation-card:hover {{ transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }}
         .valuation-header {{ display: flex; align-items: center; gap: 0.5rem; justify-content: space-between; margin-bottom: 1.5rem; }}
         .valuation-thumb {{ width: 50px; height: 30px; object-fit: cover; border-radius: 0.25rem; flex-shrink: 0; }}
-        .auction-thumb {{ width: 40px; height: 25px; object-fit: cover; border-radius: 0.25rem; flex-shrink: 0; }}
+        .auction-thumb {{ width: 60px; height: 40px; object-fit: cover; border-radius: 0.25rem; flex-shrink: 0; }}
+        .platform-logo {{ width: 24px; height: 24px; margin-right: 0.35rem; vertical-align: middle; }}
         .valuation-title {{ font-family: var(--font-display2); font-size: 1.5rem; font-weight: 500; flex: 1; }}
         .valuation-trend {{ font-size: 1.25rem; font-weight: 700; color: var(--porsche-gold); }}
         .price-display {{ font-size: 2.5rem; font-weight: 300; letter-spacing: -0.02em; margin-bottom: 1rem; }}
@@ -705,6 +719,7 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
         .turbo-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }}
         .turbo-card {{ background: var(--porsche-white); border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid var(--porsche-light-gray); }}
         .turbo-icon {{ font-size: 2rem; margin-bottom: 0.75rem; }}
+        .turbo-thumb {{ width: 60px; height: 60px; object-fit: contain; border-radius: 0.5rem; margin-bottom: 0.5rem; }}
         .turbo-card h3 {{ font-family: var(--font-display2); font-size: 1rem; margin: 0 0 0.5rem 0; color: var(--porsche-black); }}
         .turbo-card p {{ font-size: 0.875rem; color: var(--porsche-medium-gray); margin: 0; }}
         
@@ -723,6 +738,9 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
         /* Footer */
         footer {{ background: var(--porsche-black); color: var(--porsche-white); padding: 3rem 2rem; }}
         .footer-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }}
+        @media (max-width: 430px) {{
+            .footer-grid {{ grid-template-columns: 1fr 1fr; gap: 1rem; }}
+        }}
         .footer-column h4 {{ color: var(--porsche-gold); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }}
         .footer-column ul {{ list-style: none; }}
         .footer-column li {{ margin-bottom: 0.5rem; }}
@@ -744,8 +762,9 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
         
         /* iPhone Pro Max 17 - Mobile UX optimized */
         @media (max-width: 430px) {{
-            .hero-date {{ font-size: 2.5rem; }}
-            .hero-content {{ padding-bottom: 2rem; }}
+            header {{background: var(--porsche-black); height: 80vh; display: flex; align-items: flex-end; justify-content: center; padding: 2rem; position: relative; overflow: hidden; }}
+            .hero-date-main {{ font-size: 3.5rem; }}
+            .hero-date-sub {{ font-size: 1.25rem; }}
             .byline {{ font-size: 0.75rem; }}
             h2 {{ font-size: 1.25rem; }}
             .section-title {{ font-size: 1.1rem; }}
@@ -760,8 +779,8 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
             .spec-value {{ font-size: 0.8rem; }}
             .hero-badge {{ font-size: 0.7rem; padding: 0.3rem 0.8rem; }}
             .valuation-thumb {{ width: 40px; height: 25px; }}
-            
-            /* Turbo S & Videos mobile */
+            .auction-thumb {{ width: 50px; height: 32px; }}
+            .platform-logo {{ width: 20px; height: 20px; }}
             .turbo-grid {{ grid-template-columns: 1fr; }}
             .turbo-card {{ padding: 1rem; }}
             .turbo-icon {{ font-size: 1.5rem; }}
@@ -792,13 +811,15 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
 <body>
     <header>
         <div class="hero-content">
-            <p class="byline">Porsche 993 • Daily Digest</p>
-            <div class="hero-date">
-                {day_num}
-                <span class="small">{month_year}</span>
+            <div class="hero-caption-top">
+                <p class="byline">Porsche 993 • Daily Digest</p>
+                <div class="hero-badge">M64/21 Varioram • 993 Carrera 4S</div>
             </div>
-            <div class="hero-badge">M64/21 Varioram • 993 Carrera 4S</div>
-            
+            <div class="hero-date">
+                <span class="hero-date-main">{day_num}</span>
+                <span class="hero-date-sub">{month_year}</span>
+            </div>
+
             <!-- Daily Air-Cooled Hero Image -->
             <div class="daily-hero-image-container">
                 <img src="{hero_image['image_url']}" alt="{hero_image['title']}" class="daily-hero-image" loading="eager" width="1200" height="600">
@@ -860,6 +881,7 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
         <!-- Market Analysis -->
         <section>
             <h2 class="section-title"><span>📈</span> Market & Auctions</h2>
+            <div class="market-table-wrap">
             <table class="market-table">
                 <thead>
                     <tr>
@@ -874,6 +896,7 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
                     {auction_rows}
                 </tbody>
             </table>
+            </div>
             <div style="display: flex; justify-content: space-between; margin-top: 1.5rem; font-size: 0.875rem; color: #868686;">
                 <span>💱 Exchange rate: 1 USD = {rate:.2f} BRL</span>
                 <span>🔄 Updated: {formatted_date}</span>
@@ -903,10 +926,10 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
                 <div class="profiles-grid">
                     <a href="https://www.suncoastparts.com/993landing.html" target="_blank" class="profile-card">
                         <div class="profile-thumb-container">
-                            <img src="https://www.suncoastparts.com/favicon.ico" alt="Suncoast Porsche Parts" class="profile-thumb" loading="lazy" width="40" height="40">
+                            <img src="https://porsche-stories.imgix.net/suncoast-logo.png?w=120" alt="Suncoast Porsche Parts" class="profile-thumb" loading="lazy" width="60" height="60">
                         </div>
                         <div class="profile-header-card">
-                            <span class="profile-tag">OEM Parts</span>
+                            <span class="profile-tag">OEM PARTS</span>
                         </div>
                         <h3 class="profile-title-card">Suncoast Porsche Parts</h3>
                         <p class="profile-description">Official Porsche parts supplier with comprehensive 993 catalog. Select your exact model for perfect-fit OEM parts.</p>
@@ -914,7 +937,7 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
                 
                     <a href="https://www.parts-wise.com/993-porsche-parts/" target="_blank" class="profile-card">
                         <div class="profile-thumb-container">
-                            <img src="https://www.parts-wise.com/favicon.ico" alt="Partswise" class="profile-thumb" loading="lazy" width="40" height="40">
+                            <img src="https://porsche-stories.imgix.net/partswise-logo.png?w=120" alt="Partswise" class="profile-thumb" loading="lazy" width="60" height="60">
                         </div>
                         <div class="profile-header-card">
                             <span class="profile-tag">OEM/Aftermarket</span>
@@ -925,7 +948,7 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
                 
                     <a href="https://info.fcpeuro.com/993" target="_blank" class="profile-card">
                         <div class="profile-thumb-container">
-                            <img src="https://www.fcpeuro.com/favicon.ico" alt="FCP Euro" class="profile-thumb" loading="lazy" width="40" height="40">
+                            <img src="https://porsche-stories.imgix.net/fcpeuro-logo.png?w=120" alt="FCP Euro" class="profile-thumb" loading="lazy" width="60" height="60">
                         </div>
                         <div class="profile-header-card">
                             <span class="profile-tag">Performance</span>

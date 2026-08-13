@@ -154,9 +154,9 @@
         .profiles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
         .profile-card { background: var(--porsche-white); border-radius: 1rem; padding: 2.5rem; border: 1px solid var(--porsche-light-gray); box-shadow: 0 5px 20px rgba(0,0,0,0.03); transition: var(--transition); text-decoration: none; color: inherit; display: block; }
         .profile-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: var(--porsche-gold); }
-        .profile-header-card { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
-        .profile-icon-wrapper { width: 64px; height: 64px; background: var(--porsche-black); border-radius: 16px; display: flex; align-items: center; justify-content: center; }
-        .profile-icon-wrapper svg { fill: none; stroke: var(--porsche-white); }
+        .profile-thumb-container { width: 60px; height: 60px; margin-bottom: 1.5rem; }
+        .profile-thumb { width: 100%; height: 100%; object-fit: contain; border-radius: 0.5rem; }
+        .profile-header-card { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
         .profile-tag { background: var(--porsche-light-gray); color: var(--porsche-medium-gray); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.25rem 0.75rem; border-radius: 999px; font-weight: 600; }
         .profile-title-card { font-family: var(--font-display2); font-size: 1.5rem; font-weight: 500; margin-bottom: 0.5rem; }
         .profile-description { color: var(--porsche-medium-gray); font-size: 0.9rem; line-height: 1.6; }
@@ -221,6 +221,7 @@
             .hero-caption-title { font-size: 0.75rem; }
             .hero-caption-source { font-size: 0.6rem; }
             .profile-card { padding: 1rem; }
+            .profile-thumb-container { width: 50px; height: 50px; margin-bottom: 1rem; }
             .spec-block { padding: 0.6rem; }
             .spec-label { font-size: 0.65rem; }
             .spec-value { font-size: 0.8rem; }
@@ -544,12 +545,10 @@
             
                 <div class="profiles-grid">
                     <a href="https://www.suncoastparts.com/993landing.html" target="_blank" class="profile-card">
+                        <div class="profile-thumb-container">
+                            <img src="https://www.suncoastparts.com/favicon.ico" alt="Suncoast Porsche Parts" class="profile-thumb" loading="lazy" width="40" height="40">
+                        </div>
                         <div class="profile-header-card">
-                            <div class="profile-icon-wrapper">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 2L2 7v10c0 5 8 15 10 15s10-10 10-15L12 2z" stroke-width="2"/>
-                                </svg>
-                            </div>
                             <span class="profile-tag">OEM Parts</span>
                         </div>
                         <h3 class="profile-title-card">Suncoast Porsche Parts</h3>
@@ -557,12 +556,10 @@
                     </a>
                 
                     <a href="https://www.parts-wise.com/993-porsche-parts/" target="_blank" class="profile-card">
+                        <div class="profile-thumb-container">
+                            <img src="https://www.parts-wise.com/favicon.ico" alt="Partswise" class="profile-thumb" loading="lazy" width="40" height="40">
+                        </div>
                         <div class="profile-header-card">
-                            <div class="profile-icon-wrapper">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 2L2 7v10c0 5 8 15 10 15s10-10 10-15L12 2z" stroke-width="2"/>
-                                </svg>
-                            </div>
                             <span class="profile-tag">OEM/Aftermarket</span>
                         </div>
                         <h3 class="profile-title-card">Partswise</h3>
@@ -570,12 +567,10 @@
                     </a>
                 
                     <a href="https://info.fcpeuro.com/993" target="_blank" class="profile-card">
+                        <div class="profile-thumb-container">
+                            <img src="https://www.fcpeuro.com/favicon.ico" alt="FCP Euro" class="profile-thumb" loading="lazy" width="40" height="40">
+                        </div>
                         <div class="profile-header-card">
-                            <div class="profile-icon-wrapper">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 2L2 7v10c0 5 8 15 10 15s10-10 10-15L12 2z" stroke-width="2"/>
-                                </svg>
-                            </div>
                             <span class="profile-tag">Performance</span>
                         </div>
                         <h3 class="profile-title-card">FCP Euro</h3>
@@ -587,50 +582,39 @@
             <!-- Reference Profiles -->
             <section>
                 <h2 class="section-title"><span>🔗</span> Porsche Reference Profiles</h2>
-            <div class="profiles-grid">
-                <a href="/previews/porsche_drivers.html" class="profile-card">
-                    <div class="profile-header-card">
-                        <div class="profile-icon-wrapper">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 2L2 7v10c0 5 8 15 10 15s10-10 10-15L12 2z" stroke-width="2"/>
-                            </svg>
+                <div class="profiles-grid">
+                    <a href="/previews/porsche_drivers.html" class="profile-card">
+                        <div class="profile-thumb-container">
+                            <img src="https://porsche-stories.imgix.net/mobile-community.jpg?w=80" alt="Porsche Drivers Community" class="profile-thumb" loading="lazy" width="40" height="40">
                         </div>
-                        <span class="profile-tag">Community</span>
-                    </div>
-                    <h3 class="profile-title-card">Porsche Drivers</h3>
-                    <p class="profile-description">Community resources for road-focused Porsche enthusiasts — eclectic, travel, meetups and lifestyle.</p>
-                </a>
-                
-                <a href="/previews/porsche_perfection_collectors.html" class="profile-card">
-                    <div class="profile-header-card">
-                        <div class="profile-icon-wrapper">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 2L2 7v10c0 5 8 15 10 15s10-10 10-15L12 2z" stroke-width="2"/>
-                                <path d="M12 8v8" stroke-width="2" stroke-linecap="round"/>
-                                <path d="M8 12h8" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
+                        <div class="profile-header-card">
+                            <span class="profile-tag">Community</span>
                         </div>
-                        <span class="profile-tag">Collectors</span>
-                    </div>
-                    <h3 class="profile-title-card">Porsche Perfection Collectors</h3>
-                    <p class="profile-description">Focus: originality, low mileage, exclusivity and valuation for discerning 911 enthusiasts.</p>
-                </a>
-                
-                <a href="/previews/porsche_custom_community.html" class="profile-card">
-                    <div class="profile-header-card">
-                        <div class="profile-icon-wrapper">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 16c1.65 0 3-.83 3-1.83V6c0-1.1-.9-2-2-2h-2c-1.1 0-2 .9-2 2v8.17c0 1-.85 1.83-3 1.83" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 16v6" stroke-width="2" stroke-linecap="round"/>
-                            <circle cx="8" cy="14" r="2" stroke-width="2"/>
-                            <circle cx="16" cy="14" r="2" stroke-width="2"/>
-                        </svg>
+                        <h3 class="profile-title-card">Porsche Drivers</h3>
+                        <p class="profile-description">Community resources for road-focused Porsche enthusiasts — eclectic, travel, meetups and lifestyle.</p>
+                    </a>
+                    
+                    <a href="/previews/porsche_perfection_collectors.html" class="profile-card">
+                        <div class="profile-thumb-container">
+                            <img src="https://porsche-stories.imgix.net/collectors-showcase.jpg?w=80" alt="Porsche Collectors" class="profile-thumb" loading="lazy" width="40" height="40">
                         </div>
-                        <span class="profile-tag">Custom</span>
-                    </div>
-                    <h3 class="profile-title-card">Porsche Custom Community</h3>
-                    <p class="profile-description">Open to modifications, performance upgrades, tuning and custom builds.</p>
-                </a>
+                        <div class="profile-header-card">
+                            <span class="profile-tag">Collectors</span>
+                        </div>
+                        <h3 class="profile-title-card">Porsche Perfection Collectors</h3>
+                        <p class="profile-description">Focus: originality, low mileage, exclusivity and valuation for discerning 911 enthusiasts.</p>
+                    </a>
+                    
+                    <a href="/previews/porsche_custom_community.html" class="profile-card">
+                        <div class="profile-thumb-container">
+                            <img src="https://porsche-stories.imgix.net/custom-build.jpg?w=80" alt="Porsche Custom Community" class="profile-thumb" loading="lazy" width="40" height="40">
+                        </div>
+                        <div class="profile-header-card">
+                            <span class="profile-tag">Custom</span>
+                        </div>
+                        <h3 class="profile-title-card">Porsche Custom Community</h3>
+                        <p class="profile-description">Open to modifications, performance upgrades, tuning and custom builds.</p>
+                    </a>
             </div>
         </section>
         
