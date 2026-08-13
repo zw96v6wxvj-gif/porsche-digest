@@ -564,13 +564,13 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
             .hero-badge {{ font-size: 0.7rem; padding: 0.3rem 0.8rem; }}
             
             /* Carousel mobile UX */
-            .carousel-card {{ min-width: 140px; margin-right: 0; }}
-            .carousel {{ gap: 0.75rem; }}
-            .carousel-content {{ padding: 0.75rem; }}
-            .carousel-meta {{ font-size: 0.7rem; }}
-            .carousel-link {{ font-size: 0.7rem; }}
+            .carousel-card {{ min-width: 130px; flex: 1 0 0; margin-right: 0; }}
+            .carousel {{ gap: 0.5rem; }}
+            .carousel-content {{ padding: 0.6rem; }}
+            .carousel-meta {{ font-size: 0.65rem; }}
+            .carousel-link {{ font-size: 0.65rem; }}
             .carousel-nav {{ display: none; }}
-            .carousel-scrollbar-container {{ margin-top: 0.5rem; }}
+            .carousel-scrollbar-container {{ margin-top: 0.4rem; }}
             
             /* Lists mobile-friendly */
             .market-table {{ font-size: 0.8rem; }}
