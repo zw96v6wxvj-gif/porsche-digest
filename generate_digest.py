@@ -427,16 +427,52 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
         .section-title .emoji {{ font-size: 1.5rem; }}
         
         /* Carousel */
-        .carousel-container {{ position: relative; margin: 2rem 0; padding: 1rem; background: var(--porsche-white); border-radius: 1rem; border: 1px solid var(--porsche-light-gray); box-shadow: 0 5px 20px rgba(0,0,0,0.03); }}
-        .carousel {{ display: flex; overflow-x: auto; gap: 1.5rem; padding: 0.5rem 0; scrollbar-width: none; }}
+        /* Carousel following Porsche Design System */
+        .carousel-container {{ position: relative; margin: 2rem 0; }}
+        
+        /* Scroll indicator - PDS style */
         .carousel::-webkit-scrollbar {{ display: none; }}
-        .carousel-card {{ min-width: 320px; background: var(--porsche-white); border-radius: 0.75rem; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: var(--transition); border: 1px solid var(--porsche-light-gray); flex-shrink: 0; }}
+        .carousel-scrollbar-container {{
+            position: relative;
+            height: 6px;
+            background: var(--porsche-light-gray);
+            border-radius: 3px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }}
+        .carousel-scrollbar {{
+            height: 100%;
+            background: var(--porsche-gold);
+            border-radius: 3px;
+            transition: width 0.1s ease;
+        }}
+        
+        .carousel {{ display: flex; overflow-x: auto; gap: 1.5rem; padding: 0.5rem 0; scrollbar-width: none; scroll-snap-type: x mandatory; }}
+        .carousel::-webkit-scrollbar {{ display: none; }}
+        .carousel-card {{ min-width: 320px; background: var(--porsche-white); border-radius: 0.75rem; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: var(--transition); border: 1px solid var(--porsche-light-gray); flex-shrink: 0; scroll-snap-align: start; }}
         .carousel-card:hover {{ transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }}
         .carousel-image {{ width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid var(--porsche-light-gray); }}
         .carousel-content {{ padding: 1.5rem; }}
         .carousel-meta {{ font-size: 0.875rem; color: var(--porsche-medium-gray); margin-bottom: 0.75rem; }}
         .carousel-link {{ display: inline-flex; align-items: center; gap: 0.5rem; color: var(--porsche-black); text-decoration: none; font-weight: 700; font-size: 0.875rem; transition: color 0.2s ease; }}
         .carousel-link:hover {{ color: var(--porsche-gold); }}
+        
+        /* Carousel navigation buttons - PDS style */
+        .carousel-nav {{ display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem; }}
+        .carousel-nav-btn {{
+            background: var(--porsche-white);
+            border: 1px solid var(--porsche-light-gray);
+            border-radius: 999px;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }}
+        .carousel-nav-btn:hover {{ background: var(--porsche-gold); border-color: var(--porsche-gold); }}
+        .carousel-nav-btn svg {{ fill: none; stroke: var(--porsche-black); stroke-width: 2; }}
         
         /* Market Table */
         .market-table {{ width: 100%; border-collapse: separate; border-spacing: 0; background: var(--porsche-white); border-radius: 1rem; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.03); border: 1px solid var(--porsche-light-gray); }}
@@ -505,19 +541,36 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
             .section-header {{ flex-direction: column; align-items: flex-start; gap: 0.5rem; }}
         }}
         
-        /* iPhone Pro Max specific optimizations */
+        /* iPhone Pro Max 17 - Mobile UX optimized */
         @media (max-width: 430px) {{
             .hero-date {{ font-size: 2.5rem; }}
-            .hero-content {{ padding-bottom: 4rem; }}
+            .hero-content {{ padding-bottom: 2rem; }}
             .byline {{ font-size: 0.75rem; }}
-            h2 {{ font-size: 1.5rem; }}
-            .section-title {{ font-size: 1.25rem; }}
-            .market-table th, .market-table td {{ padding: 0.75rem; font-size: 0.875rem; }}
-            .hero-caption-title {{ font-size: 0.8rem; }}
-            .hero-caption-source {{ font-size: 0.65rem; }}
-            .profile-card {{ padding: 1.5rem; }}
-            .spec-block {{ padding: 0.75rem; }}
-            .spec-value {{ font-size: 0.9rem; }}
+            h2 {{ font-size: 1.25rem; }}
+            .section-title {{ font-size: 1.1rem; }}
+            .section-title .emoji {{ font-size: 1.2rem; }}
+            .market-table th, .market-table td {{ padding: 0.6rem 0.5rem; font-size: 0.75rem; }}
+            .hero-caption-title {{ font-size: 0.75rem; }}
+            .hero-caption-source {{ font-size: 0.6rem; }}
+            .profile-card {{ padding: 1rem; }}
+            .spec-block {{ padding: 0.6rem; }}
+            .spec-label {{ font-size: 0.65rem; }}
+            .spec-value {{ font-size: 0.8rem; }}
+            .hero-badge {{ font-size: 0.7rem; padding: 0.3rem 0.8rem; }}
+            
+            /* Carousel mobile UX */
+            .carousel-card {{ min-width: 260px; margin-right: 0; }}
+            .carousel {{ gap: 1rem; }}
+            .carousel-content {{ padding: 1rem; }}
+            .carousel-meta {{ font-size: 0.75rem; }}
+            .carousel-link {{ font-size: 0.75rem; }}
+            .carousel-nav {{ display: none; }}
+            .carousel-scrollbar-container {{ margin-top: 0.75rem; }}
+            
+            /* Lists mobile-friendly */
+            .market-table {{ font-size: 0.8rem; }}
+            .price-display {{ font-size: 1.5rem; }}
+            .price-secondary {{ font-size: 0.85rem; }}
         }}
     </style>
 </head>
@@ -547,11 +600,47 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
         <section>
             <h2 class="section-title"><span>🏆</span> Porsche Newsroom & Classic</h2>
             <div class="carousel-container">
-                <div class="carousel">
+                <div class="carousel" id="newsCarousel">
                     {news_cards}
+                </div>
+                <div class="carousel-scrollbar-container">
+                    <div class="carousel-scrollbar" id="carouselScrollbar"></div>
+                </div>
+                <div class="carousel-nav">
+                    <button class="carousel-nav-btn" id="prevBtn" aria-label="Previous">
+                        <svg width="20" height="20" viewBox="0 0 24 24"><polyline points="19 12 5 12"></polyline><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    </button>
+                    <button class="carousel-nav-btn" id="nextBtn" aria-label="Next">
+                        <svg width="20" height="20" viewBox="0 0 24 24"><polyline points="5 19 19 12"></polyline><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </button>
                 </div>
             </div>
         </section>
+        <script>
+            // PDS-style carousel scrollbar + navigation
+            const carousel = document.getElementById('newsCarousel');
+            const scrollbar = document.getElementById('carouselScrollbar');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            if (carousel && scrollbar) {{
+                function updateScrollbar() {{
+                    const scrollPercent = (carousel.scrollLeft / (carousel.scrollWidth - carousel.clientWidth)) * 100;
+                    scrollbar.style.width = Math.max(10, 100 - scrollPercent * 0.8) + '%';
+                }}
+                carousel.addEventListener('scroll', updateScrollbar);
+                updateScrollbar();
+            }}
+            
+            if (prevBtn && nextBtn) {{
+                prevBtn.addEventListener('click', () => {{
+                    carousel.scrollBy({{ left: -340, behavior: 'smooth' }});
+                }});
+                nextBtn.addEventListener('click', () => {{
+                    carousel.scrollBy({{ left: 340, behavior: 'smooth' }});
+                }});
+            }}
+        </script>
         
         <!-- Market Analysis -->
         <section>
