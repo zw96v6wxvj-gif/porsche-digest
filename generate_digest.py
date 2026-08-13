@@ -564,7 +564,7 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
             .hero-badge {{ font-size: 0.7rem; padding: 0.3rem 0.8rem; }}
             
             /* Carousel mobile UX */
-            .carousel-card {{ min-width: 130px; flex: 1 0 0; margin-right: 0; }}
+            .carousel-card {{ min-width: 158px; flex: 1 0 0; margin-right: 0; }}
             .carousel {{ gap: 0.5rem; }}
             .carousel-content {{ padding: 0.6rem; }}
             .carousel-meta {{ font-size: 0.65rem; }}
