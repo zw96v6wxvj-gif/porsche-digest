@@ -412,7 +412,7 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
         auction_rows += f"""
                     <tr>
                         <td><a href="{platform_url}" target="_blank" class="platform-link">{platform}</a></td>
-                        <td>{a['title']}</td>
+                        <td><div style="display: flex; align-items: center; gap: 0.5rem;"><img src="https://content-hub.imgix.net/GUhocLc6D6V9qFtm3Oc2g/19e093064c8a22f6214f16a85469aac2/7-20things-20you-20need-20to-20know-20about-20the-20porsche-20911-20type-20993.jpg?w=80" alt="Porsche 911" class="auction-thumb" loading="lazy" width="40" height="25"><span>{a['title']}</span></div></td>
                         <td class="price-usd">{format_currency(a['price_usd'], 'USD')}</td>
                         <td class="price-brl">{format_currency(price_brl, 'BRL')}</td>
                         <td><span class="status-badge status-auction">{status_en}</span></td>
@@ -457,6 +457,7 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
         valuation_cards += f"""
                 <div class="valuation-card">
                     <div class="valuation-header">
+                        <img src="https://content-hub.imgix.net/GUhocLc6D6V9qFtm3Oc2g/19e093064c8a22f6214f16a85469aac2/7-20things-20you-20need-20to-20know-20about-20the-20porsche-20911-20type-20993.jpg?w=80" alt="{model}" class="valuation-thumb" loading="lazy" width="60" height="40">
                         <span class="valuation-title">{model}</span>
                         <span class="valuation-trend">{data['yoy_change']}</span>
                     </div>
@@ -671,8 +672,10 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
         .valuation-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; }}
         .valuation-card {{ background: var(--porsche-white); border-radius: 1rem; padding: 2rem; border: 1px solid var(--porsche-light-gray); box-shadow: 0 5px 20px rgba(0,0,0,0.03); transition: var(--transition); }}
         .valuation-card:hover {{ transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }}
-        .valuation-header {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }}
-        .valuation-title {{ font-family: var(--font-display2); font-size: 1.5rem; font-weight: 500; }}
+        .valuation-header {{ display: flex; align-items: center; gap: 0.5rem; justify-content: space-between; margin-bottom: 1.5rem; }}
+        .valuation-thumb {{ width: 50px; height: 30px; object-fit: cover; border-radius: 0.25rem; flex-shrink: 0; }}
+        .auction-thumb {{ width: 40px; height: 25px; object-fit: cover; border-radius: 0.25rem; flex-shrink: 0; }}
+        .valuation-title {{ font-family: var(--font-display2); font-size: 1.5rem; font-weight: 500; flex: 1; }}
         .valuation-trend {{ font-size: 1.25rem; font-weight: 700; color: var(--porsche-gold); }}
         .price-display {{ font-size: 2.5rem; font-weight: 300; letter-spacing: -0.02em; margin-bottom: 1rem; }}
         .price-secondary {{ font-size: 1rem; color: var(--porsche-medium-gray); margin-bottom: 1.5rem; }}
@@ -755,6 +758,7 @@ def generate_html_template(date_str, articles, auctions, valuation, rate, videos
             .spec-label {{ font-size: 0.65rem; }}
             .spec-value {{ font-size: 0.8rem; }}
             .hero-badge {{ font-size: 0.7rem; padding: 0.3rem 0.8rem; }}
+            .valuation-thumb {{ width: 40px; height: 25px; }}
             
             /* Turbo S & Videos mobile */
             .turbo-grid {{ grid-template-columns: 1fr; }}
