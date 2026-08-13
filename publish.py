@@ -239,7 +239,7 @@ def main():
     env["CLOUDFLARE_API_TOKEN"] = cf_token
     env["CLOUDFLARE_ACCOUNT_ID"] = cf_account_id
 
-    deploy_cmd = f"npx wrangler pages deploy . --project-name porsche-digest --branch main"
+    deploy_cmd = f"npx wrangler pages deploy . --project-name porsche-digest-v2 --branch v2-redesign"
 
     try:
         result = subprocess.run(deploy_cmd, shell=True, cwd=repo_dir,
@@ -247,9 +247,9 @@ def main():
 
         if result.returncode == 0:
             print("✅ Successfully deployed to Cloudflare Pages!")
-            print("🔗 Live at: https://digest.costafamily.ai")
-            print("🔗 Backup: https://porsche-digest.pages.dev")
-            print("🔗 Archive: https://digest.costafamily.ai/archive/")
+            print("🔗 Live at: https://porscheV2digest.costafamily.ai")
+            print("🔗 Backup: https://porsche-digest-v2.pages.dev")
+            print("🔗 Archive: https://porscheV2digest.costafamily.ai/archive/")
             return True
         else:
             print(f"❌ Wrangler deploy failed: {result.stderr}")
