@@ -314,7 +314,7 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
         
         news_cards += f"""
                     <div class="carousel-card">
-                        <img src="{image_url}" alt="{article['title']}" class="carousel-image">
+                        <img src="{image_url}" alt="{article['title']}" class="carousel-image" loading="lazy" width="200" height="120">
                         <div class="carousel-content">
                             <div class="carousel-meta">{article.get('days_ago', '5')} days ago</div>
                             <h3>{article['title']}</h3>
@@ -368,6 +368,11 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Porsche 993 Daily Digest | {formatted_date}</title>
     <meta name="description" content="Daily Porsche 993 Carrera 4S intelligence brief by Hermes Carrera. Market data, auction listings, and Porsche heritage content.">
+    <meta name="theme-color" content="#d4af37">
+    <meta name="color-scheme" content="light dark">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -591,7 +596,7 @@ def generate_html_template(date_str, articles, auctions, valuation, rate):
             
             <!-- Daily Air-Cooled Hero Image -->
             <div class="daily-hero-image-container">
-                <img src="{hero_image['image_url']}" alt="{hero_image['title']}" class="daily-hero-image">
+                <img src="{hero_image['image_url']}" alt="{hero_image['title']}" class="daily-hero-image" loading="eager" width="1200" height="600">
                 <div class="hero-caption">
                     <div class="hero-caption-title">{hero_image['title']}</div>
                     <div class="hero-caption-source">{hero_image['model']} • {hero_image['source']}</div>

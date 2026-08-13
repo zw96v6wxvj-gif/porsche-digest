@@ -1,0 +1,16 @@
+{
+  "name": "Porsche 993 Daily Digest",
+  "short_name": "993 Digest",
+  "description": "Daily Porsche 993 Carrera 4S intelligence brief",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#d4af37",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "192x192",
+      "type": "image/x-icon"
+    }
+  ]
+}
